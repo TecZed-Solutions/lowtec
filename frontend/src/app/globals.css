@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  --marca: #49e510;
+  --marca1: #206607;
+
+  --fundo: #050505;
+  --fundo2: #0b0b0b;
+
+  --text1: #f5f5f5;
+  --text2: #b8b8b8;
+  --text3: #929292;
+
+  --cartao: #121212;
+}
+
+@theme inline {
+  --color-marca: var(--marca);
+  --color-marca1: var(--marca1);
+
+  --color-fundo: var(--fundo);
+  --color-fundo2: var(--fundo2);
+
+  --font-titulo: var(--font-titillium-web);
+  --font-subtitulo: var(--font-karla);
+  --font-corpo: var(--font-chivo);
+
+  --color-text1: var(--text1);
+  --color-text2: var(--text2);
+  --color-text3: var(--text3);
+}
+
+body {
+  background: var(--fundo);
+  color: var(--text1);
+}
