@@ -1,0 +1,19 @@
+model Usuario {
+    id                  String    @id @default(uuid())
+    email               String    @unique
+    imageUrl            String?
+    phone               String?
+    password            String?
+    provider            Provider  @default(LOCAL)
+    resetPasswordToken  String?   @unique
+    resetTokenExpiresAt DateTime?
+
+    pagamentos Pagamento[]
+
+    @@map("usuarios")
+}
+
+enum Provider {
+    GOOGLE
+    LOCAL
+}

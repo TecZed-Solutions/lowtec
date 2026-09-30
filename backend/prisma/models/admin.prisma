@@ -1,0 +1,10 @@
+model Admin {
+    id        String  @id @default(uuid())
+    username  String  @unique
+    name      String
+    password  String
+    twoFactor String  @db.Char(4)
+    active    Boolean @default(true)
+
+    @@map("admins")
+}

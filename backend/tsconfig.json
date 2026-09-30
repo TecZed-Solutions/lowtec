@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", // compila para JS MODERNO -> podemos escolher outras versões, mas essa é a melhor com next+ts
+    "module": "NodeNext", // como colocamos module no package.json (import ALGUMA COISA from "ALGUMABIBLIOTECA), ajuda o ts a compreender a importação.
+    "moduleResolution": "NodeNext",
+
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    "types": ["node"], //libera algumas palavras reservadas da linguagem como : process, Buffer, setImmediate, NodeJS
+
+    "strict": true, // evita mais erros em produção, mais alertas com tipagem quando compilar ts -> js
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true, // respeitar maiúsculas e minúsculas nos nomes dos arquivos.
+
+    "skipLibCheck": true,
+
+    "sourceMap": true,
+
+    "noEmitOnError": true // não gera os arquivos js se tiver erro.
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "build"]
+}
