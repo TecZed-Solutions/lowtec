@@ -1,12 +1,20 @@
 model Usuario {
-    id                  String    @id @default(uuid())
-    email               String    @unique
-    imageUrl            String?
-    phone               String?
-    password            String?
-    provider            Provider  @default(LOCAL)
-    resetPasswordToken  String?   @unique
-    resetTokenExpiresAt DateTime?
+    id                         String    @id @default(uuid())
+    email                      String    @unique
+    imageUrl                   String?
+    phone                      String?
+    password                   String?
+    provider                   Provider  @default(LOCAL)
+    // CAMPOS PARA A VERIFICAÇÃO DO EMAIL
+    emailVerified              Boolean   @default(false)
+    emailVerificationToken     String?   @unique
+    emailVerificationExpiresAt DateTime?
+    // CAMPOS PARA CONTROLE DO RESET DA SENHA
+    resetPasswordToken         Int?      @unique
+    resetTokenExpiresAt        DateTime?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
     pagamentos Pagamento[]
 
