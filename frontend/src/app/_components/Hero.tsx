@@ -1,23 +1,36 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, LockKeyhole, MessageCircle, Zap } from "lucide-react";
 
-import PromptShowcase from "./PromptShowcase";
 import Header from "@/components/Header";
-import HeroPattern from "@/components/HeroPattern";
+import HeroPattern from "@/components/hero/HeroPattern";
+import ProductShowcase from "@/components/hero/ProductShowcase";
 
 import { fadeInLeft, fadeInRight, fadeInUp } from "@/lib/motion";
 
-const BENEFITS = [
-  "Várias categorias de prompts",
-  "Funciona com a sua foto",
-  "Acesso imediato",
+const items = [
+  {
+    icon: LockKeyhole,
+    title: "Compra segura",
+    description: "Pagamento protegido",
+  },
+  {
+    icon: Zap,
+    title: "Acesso imediato",
+    description: "Receba após a compra",
+  },
+  {
+    icon: MessageCircle,
+    title: "Suporte direto",
+    description: "Fale com a nossa equipe",
+  },
 ];
 
 export default function Hero() {
   return (
     <section
+      id="hero"
       aria-labelledby="hero-title"
       className="bg-fundo relative isolate min-h-svh overflow-hidden"
     >
@@ -26,7 +39,7 @@ export default function Hero() {
       {/* Brilho atrás do showcase */}
       <div
         aria-hidden="true"
-        className="bg-marca/15 pointer-events-none absolute top-0 -left-64 -z-10 hidden h-128 w-lg rounded-full blur-[120px] lg:block"
+        className="bg-marca/15 pointer-events-none absolute -top-48 -left-64 -z-10 hidden h-128 w-lg rounded-full blur-[120px] lg:block"
       />
 
       <div
@@ -42,11 +55,11 @@ export default function Hero() {
             variants={fadeInLeft}
             initial="hidden"
             animate="visible"
-            className="flex flex-col items-start gap-7"
+            className="flex flex-col items-center gap-7 lg:items-start"
           >
             <h1
               id="hero-title"
-              className="font-display text-text1 text-[clamp(2.5rem,6.5vw,4.75rem)] leading-[0.95] font-black tracking-tight italic"
+              className="font-display text-text1 text-center text-[clamp(2.5rem,6.5vw,4.75rem)] leading-[0.95] font-black tracking-tight italic lg:text-left"
             >
               Transforme a sua foto em um{" "}
               <span className="from-marca to-text1 bg-linear-to-r bg-clip-text pr-2 text-transparent">
@@ -54,7 +67,7 @@ export default function Hero() {
               </span>
             </h1>
 
-            <p className="text-text2 max-w-xl text-lg leading-relaxed">
+            <p className="text-text2 max-w-xl text-center text-lg leading-relaxed lg:text-left">
               Prompts prontos de ângulo, pose, luz e efeito para aplicar na sua
               foto com IA e chegar a um resultado de estúdio, sem fotógrafo.
             </p>
@@ -63,7 +76,7 @@ export default function Hero() {
               variants={fadeInUp}
               initial="hidden"
               animate="visible"
-              className="flex flex-col items-start gap-5"
+              className="flex flex-col items-center gap-5 lg:items-start"
             >
               <a
                 href="#comprar"
@@ -75,19 +88,24 @@ export default function Hero() {
                 </span>
               </a>
 
-              <ul className="text-text2 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-                {BENEFITS.map((benefit) => (
-                  <li key={benefit} className="flex items-center gap-1.5">
-                    <Check
-                      size={16}
-                      strokeWidth={3}
-                      aria-hidden="true"
-                      className="text-marca"
-                    />
-                    {benefit}
-                  </li>
-                ))}
-              </ul>
+              <div className="grid w-full max-w-lg grid-cols-1 gap-3 sm:grid-cols-3">
+                {items.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={index} className="flex items-center gap-3">
+                      <div className="bg-marca/10 text-marca flex size-9 shrink-0 items-center justify-center rounded-full">
+                        <Icon className="size-4" />
+                      </div>
+                      <div>
+                        <p className="text-text1 text-sm font-bold">
+                          {item.title}
+                        </p>
+                        <p className="text-text2 text-xs">{item.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </motion.div>
           </motion.div>
 
@@ -97,7 +115,7 @@ export default function Hero() {
             animate="visible"
             className="mx-auto w-full max-w-md lg:mr-0 lg:ml-auto"
           >
-            <PromptShowcase />
+            <ProductShowcase />
           </motion.div>
         </div>
       </div>

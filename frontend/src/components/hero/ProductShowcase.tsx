@@ -46,7 +46,7 @@ const CATEGORIES = [
   },
 ] as const;
 
-export default function PromptShowcase() {
+export default function ProductShowcase() {
   const [api, setApi] = useState<CarouselApi>();
   const [activeIndex, setActiveIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
