@@ -1,0 +1,22 @@
+model Compra {
+    id          String     @id @default(uuid())
+
+    usuarioId   String
+    usuario     Usuario    @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+    produtoId   String
+    produto     Produto    @relation(fields: [produtoId], references: [id])
+
+    pagamentoId String
+    pagamento   Pagamento  @relation(fields: [pagamentoId], references: [id], onDelete: Cascade)
+
+    valor       Decimal    @db.Decimal(10, 2)
+    discount    Decimal    @default(0) @db.Decimal(10, 2)
+
+    createdAt   DateTime   @default(now())
+
+    @@index([usuarioId])
+    @@index([produtoId])
+    @@index([pagamentoId])
+    @@map("compras")
+}

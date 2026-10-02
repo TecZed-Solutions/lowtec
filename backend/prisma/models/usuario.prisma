@@ -2,6 +2,7 @@ model Usuario {
     id                         String    @id @default(uuid())
     email                      String    @unique
     imageUrl                   String?
+    imageKey                   String?
     phone                      String?
     password                   String?
     provider                   Provider  @default(LOCAL)
@@ -17,6 +18,7 @@ model Usuario {
     updatedAt DateTime @updatedAt
 
     pagamentos Pagamento[]
+    compras    Compra[]
 
     @@map("usuarios")
 }

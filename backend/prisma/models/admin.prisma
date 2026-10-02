@@ -3,11 +3,11 @@ model Admin {
     username  String  @unique
     name      String
     password  String
-    twoFactor String  @db.Char(4)
+    twoFactor String
     active    Boolean @default(true)
 
-    createdAt           DateTime  @default(now())
-    updatedAt           DateTime  @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
     @@map("admins")
 }

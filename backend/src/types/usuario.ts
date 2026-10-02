@@ -15,12 +15,19 @@ export interface CriarUsuarioGoogleDTO {
   provider: Provider;
 }
 
-export interface AtualizarUsuarioDTO {
-  imageUrl: string;
-  phone: string;
+export interface AtualizarTokenUsuarioDTO {
   emailVerified: boolean;
   emailVerificationToken: string | null;
   emailVerificationExpiresAt: Date | null;
   resetPasswordToken: number | null;
   resetTokenExpiresAt: Date | null;
+}
+
+export interface AtualizarPerfilUsuarioDTO {
+  phone?: string;
+}
+
+export interface AtualizarFotoUsuarioDTO {
+  imageUrl: string | null;
+  imageKey: string | null;
 }

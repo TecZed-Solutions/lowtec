@@ -1,0 +1,11 @@
+model Produto {
+    id          String     @id @default(uuid())
+    name        String
+    valor       Decimal    @db.Decimal(10, 2)
+    discount    Decimal    @default(0) @db.Decimal(10, 2)
+    downloadUrl String
+
+    compras     Compra[]
+
+    @@map("produtos")
+}

@@ -1,19 +1,25 @@
 model Pagamento {
-    id       String           @id @default(uuid())
-    userId   String
-    usuario  Usuario          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    id        String  @id @default(uuid())
+    usuarioId String
+    usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
     status   StatusPagamento
     paidAt   DateTime?
-    value    Decimal          @db.Decimal(10, 2)
-    discount Decimal          @default(0) @db.Decimal(10, 2)
-    metodo   MetodoPagamento
-    gateway  GatewayPagamento
-    metadata Json?
+    value    Decimal         @db.Decimal(10, 2)
+    discount Decimal         @default(0) @db.Decimal(10, 2)
 
-    createdAt           DateTime  @default(now())
-    updatedAt           DateTime  @updatedAt
+    metodo      MetodoPagamento
+    gatewayId   String?
+    checkoutUrl String?
+    gateway     GatewayPagamento
+    metadata    Json?
 
-    @@index([userId])
+    compras Compra[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([usuarioId])
     @@index([status])
     @@index([gateway])
     @@map("pagamentos")
@@ -34,7 +40,5 @@ enum MetodoPagamento {
 }
 
 enum GatewayPagamento {
-    STRIPE
-    MERCADOPAGO
-    PAGARME
+    INFINITEPAY
 }

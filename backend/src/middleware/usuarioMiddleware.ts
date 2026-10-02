@@ -1,19 +1,11 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-
-interface UsuarioToken {
-  id: string;
-  email: string;
-}
-
-export interface AuthRequest extends Request {
-  usuario?: UsuarioToken;
-}
+import { AuthRequest, UsuarioToken } from "../types/auth.js";
 
 export function usuarioMiddleware(
   req: AuthRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     const token = req.cookies?.JWT_USUARIO;
@@ -24,10 +16,10 @@ export function usuarioMiddleware(
       });
     }
 
-    const secret = process.env.JWT_USUARIO_SECRET;
+    const secret = process.env.JWT_USUARIO;
 
     if (!secret) {
-      console.error("JWT_USUARIO_SECRET não configurado.");
+      console.error("JWT_USUARIO não configurado.");
 
       return res.status(500).json({
         message: "Erro interno de configuração.",
@@ -36,7 +28,7 @@ export function usuarioMiddleware(
 
     const decoded = jwt.verify(token, secret) as UsuarioToken;
 
-    req.usuario = decoded;
+    req.usuario = decoded; // id e email disponível agora no req.usuario
 
     next();
   } catch (error) {

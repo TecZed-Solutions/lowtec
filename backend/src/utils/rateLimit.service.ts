@@ -20,12 +20,12 @@ export const loginRateLimit = rateLimit({
   },
 });
 
-export const registroRateLimit = rateLimit({
+export const restrictRateLimit = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 Hora
   limit: 3, // máximo de 3 tentativas
   standardHeaders: "draft-8",
   legacyHeaders: false,
   message: {
-    message: "Muitas tentativas de cadastro. Tente novamente mais tarde.",
+    message: "Muitas tentativas. Tente novamente mais tarde.",
   },
 });
