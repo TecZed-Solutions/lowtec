@@ -16,7 +16,7 @@ const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 export class UsuarioController {
   async registroLocal(req: Request, res: Response) {
     try {
-      const { email, password } = req.body;
+      const { email, password, confirmPassword } = req.body;
       if (!email || !password) {
         return res
           .status(400)
@@ -29,10 +29,22 @@ export class UsuarioController {
         });
       }
 
+      if (!password || !confirmPassword) {
+        return res.status(400).json({
+          message: "Senha e confirmação de senha são obrigatórias.",
+        });
+      }
+
       if (!isValidPassword(password)) {
         return res.status(400).json({
           message:
             "A senha deve ter no mínimo 8 caracteres, incluindo letra maiúscula, minúscula e número.",
+        });
+      }
+
+      if (password !== confirmPassword) {
+        return res.status(400).json({
+          message: "As senhas não coincidem.",
         });
       }
 

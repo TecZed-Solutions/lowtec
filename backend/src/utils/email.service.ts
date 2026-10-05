@@ -38,7 +38,7 @@ class ResendEmailService {
 
   async enviarTokenPassword(email: string, resetToken: number) {
     return resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL!,
+      from: "LowTec <no-reply@lowtec.com.br>",
       to: email,
       subject: "Código para redefinir sua senha",
       html: `

@@ -20,7 +20,7 @@ export class PagamentoController {
 
       const usuarioId = req.usuario.id;
 
-      const { produtoId, metodo, gateway } = req.body;
+      const { produtoId, gateway } = req.body;
 
       if (!Array.isArray(produtoId) || produtoId.length === 0) {
         return res.status(400).json({
@@ -28,15 +28,9 @@ export class PagamentoController {
         });
       }
 
-      if (!metodo || !gateway) {
+      if (!gateway) {
         return res.status(400).json({
           message: "Método e gateway são obrigatórios.",
-        });
-      }
-
-      if (!Object.values(MetodoPagamento).includes(metodo)) {
-        return res.status(400).json({
-          message: "Método de pagamento inválido.",
         });
       }
 
@@ -50,7 +44,6 @@ export class PagamentoController {
         usuarioId,
         produtoId,
         status: StatusPagamento.PENDING,
-        metodo,
         gateway,
       });
 
@@ -66,12 +59,14 @@ export class PagamentoController {
             price: compra.valor.minus(compra.discount).mul(100).toNumber(),
           }));
 
-          const infinitePay = await createInfinitePayLink(items, pagamento.id);
+          const order_nsu = `pedido-${pagamento.id}`;
+
+          const infinitePay = await createInfinitePayLink(items, order_nsu);
 
           const pagamentoAtualizado = await pagamentoService.update(
             pagamento.id,
             {
-              gatewayId: infinitePay.raw.id,
+              gatewayId: order_nsu,
               checkoutUrl: infinitePay.checkoutUrl,
               metadata: infinitePay.raw,
             },

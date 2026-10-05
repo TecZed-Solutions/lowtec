@@ -11,6 +11,12 @@ import {
 } from "../../types/pagamento.js";
 
 export class PagamentoService {
+  async findPagamentoByGatewayId(gatewayId: string): Promise<Pagamento | null> {
+    return prisma.pagamento.findUnique({
+      where: { gatewayId },
+    });
+  }
+
   async getPagamentosUsuario(
     id: string,
     options?: { status?: StatusPagamento; metodo?: MetodoPagamento },
@@ -62,7 +68,6 @@ export class PagamentoService {
         data: {
           usuarioId: data.usuarioId,
           status: data.status,
-          metodo: data.metodo,
           gateway: data.gateway,
           value,
           discount,

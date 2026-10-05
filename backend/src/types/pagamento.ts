@@ -8,15 +8,15 @@ export interface CreatePagamentoDTO {
   usuarioId: string;
   produtoId: string[];
   status: StatusPagamento;
-  metodo: MetodoPagamento;
   gateway: GatewayPagamento;
   metadata?: object;
 }
 
 export interface AtualizarPagamentoDTO {
   status?: StatusPagamento;
+  metodo?: MetodoPagamento;
   paidAt?: Date;
   gatewayId?: string;
   checkoutUrl?: string;
-  metadata?: object
+  metadata?: object;
 }

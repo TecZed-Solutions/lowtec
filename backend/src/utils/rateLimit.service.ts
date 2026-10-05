@@ -29,3 +29,13 @@ export const restrictRateLimit = rateLimit({
     message: "Muitas tentativas. Tente novamente mais tarde.",
   },
 });
+
+export const createPaymentRateLimit = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 Hora
+  limit: 3, // máximo de 3 tentativas
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  message: {
+    message: "Muitas tentativas. Tente novamente mais tarde.",
+  },
+});

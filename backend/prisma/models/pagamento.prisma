@@ -8,8 +8,8 @@ model Pagamento {
     value    Decimal         @db.Decimal(10, 2)
     discount Decimal         @default(0) @db.Decimal(10, 2)
 
-    metodo      MetodoPagamento
-    gatewayId   String?
+    metodo      MetodoPagamento?
+    gatewayId   String?          @unique
     checkoutUrl String?
     gateway     GatewayPagamento
     metadata    Json?
