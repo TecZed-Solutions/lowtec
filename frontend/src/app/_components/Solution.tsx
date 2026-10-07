@@ -2,7 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { ArrowRight, LayoutGrid, ListOrdered, Sparkles } from "lucide-react";
 
 import CtaButton from "@/components/CtaButton";
-import EbookCover from "@/components/solution/EbookCover";
+import EbookCover from "@/components/EbookCover";
 import { LightRays } from "@/components/ui/light-rays";
 import { NumberTicker } from "@/components/ui/number-ticker";
 

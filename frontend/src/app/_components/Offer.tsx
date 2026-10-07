@@ -1,7 +1,7 @@
 import { ArrowRight, Check } from "lucide-react";
 
 import CtaButton from "@/components/CtaButton";
-import EbookCover from "@/components/solution/EbookCover";
+import EbookCover from "@/components/EbookCover";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 
 import { OFFER, TRUST } from "@/constants/offer";
