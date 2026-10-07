@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, LockKeyhole, MessageCircle, Zap } from "lucide-react";
 
+import CtaButton from "@/components/CtaButton";
 import Header from "@/components/Header";
 import HeroPattern from "@/components/hero/HeroPattern";
 import ProductShowcase from "@/components/hero/ProductShowcase";
@@ -78,15 +79,10 @@ export default function Hero() {
               animate="visible"
               className="flex flex-col items-center gap-5 lg:items-start"
             >
-              <a
-                href="#comprar"
-                className="group bg-marca font-ui text-fundo hover:bg-marca/85 focus-visible:outline-marca inline-flex -skew-x-12 items-center px-8 py-4 text-base font-extrabold shadow-[0_10px_40px_-10px_rgba(73,229,16,0.6)] transition-colors"
-              >
-                <span className="inline-flex skew-x-12 items-center gap-2">
-                  Adquirir agora
-                  <ArrowRight className="transition-transform group-hover:translate-x-1" />
-                </span>
-              </a>
+              <CtaButton href="#comprar">
+                Adquirir agora
+                <ArrowRight className="transition-transform group-hover:translate-x-1" />
+              </CtaButton>
 
               <div className="grid w-full max-w-lg grid-cols-1 gap-3 sm:grid-cols-3">
                 {items.map((item, index) => {

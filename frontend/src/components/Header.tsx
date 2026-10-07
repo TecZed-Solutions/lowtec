@@ -3,6 +3,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { DoorOpen } from "lucide-react";
 
+import AuthDialog from "@/components/auth/AuthDialog";
+
 export default function Header() {
   return (
     <motion.header
@@ -22,15 +24,7 @@ export default function Header() {
         />
       </Link>
 
-      <a
-        href="#comprar"
-        className="group bg-marca font-ui text-fundo hover:bg-marca/85 focus-visible:outline-marca inline-flex -skew-x-12 items-center px-8 py-4 text-base font-extrabold shadow-[0_10px_40px_-10px_rgba(73,229,16,0.6)] transition-colors"
-      >
-        <span className="inline-flex skew-x-12 items-center gap-2">
-          <DoorOpen size={18} strokeWidth={2.5} aria-hidden="true" />
-          Fazer login
-        </span>
-      </a>
+      <AuthDialog />
     </motion.header>
   );
 }

@@ -57,9 +57,10 @@ export function Marquee({
       {Array(repeat)
         .fill(0)
         .map((_, i) => (
+          // Mantenha [animation-play-state:paused]: a forma "paused" sugerida pela extensão não gera CSS no Tailwind 4.3
           <div
             key={i}
-            className={cn("flex shrink-0 justify-around gap-(--gap)", {
+            className={cn("flex shrink-0 justify-around gap-(--gap) motion-reduce:[animation-play-state:paused]", {
               "animate-marquee flex-row": !vertical,
               "animate-marquee-vertical flex-col": vertical,
               "group-hover:[animation-play-state:paused]": pauseOnHover,
