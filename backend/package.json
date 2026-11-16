@@ -23,7 +23,8 @@
   "type": "module",
   "main": "src/server.ts",
   "scripts": {
-    "test": "tsx watch src/server.ts"
+    "test": "tsx watch src/server.ts",
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1145.0",

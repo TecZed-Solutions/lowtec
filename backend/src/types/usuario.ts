@@ -1,6 +1,7 @@
 import { Provider } from "@prisma/client";
 
 export interface CriarUsuarioLocalDTO {
+  nome: string;
   email: string;
   password: string;
   emailVerified: boolean;
@@ -9,6 +10,7 @@ export interface CriarUsuarioLocalDTO {
 }
 
 export interface CriarUsuarioGoogleDTO {
+  nome: string;
   email: string;
   imageUrl: string | null;
   emailVerified: boolean;
@@ -24,6 +26,7 @@ export interface AtualizarTokenUsuarioDTO {
 }
 
 export interface AtualizarPerfilUsuarioDTO {
+  nome?: string;
   phone?: string;
 }
 

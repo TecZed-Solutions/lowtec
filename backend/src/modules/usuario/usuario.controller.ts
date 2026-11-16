@@ -16,11 +16,11 @@ const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 export class UsuarioController {
   async registroLocal(req: Request, res: Response) {
     try {
-      const { email, password, confirmPassword } = req.body;
-      if (!email || !password) {
+      const { nome, email, password, confirmPassword } = req.body;
+      if (!email || !password || !nome) {
         return res
           .status(400)
-          .json({ message: "E-mail e senha são obrigatórios." });
+          .json({ message: "E-mail, nome e senha são obrigatórios." });
       }
 
       if (!isValidEmail(email)) {
@@ -95,6 +95,7 @@ export class UsuarioController {
         Date.now() + 1000 * 60 * 60 * 24,
       );
       const usuario = await usuarioService.createLocal({
+        nome,
         email,
         password: passwordHash,
         emailVerified: false,
@@ -261,12 +262,13 @@ export class UsuarioController {
 
       const payload = ticket.getPayload();
 
-      if (!payload || !payload.email) {
+      if (!payload || !payload.email || !payload.name) {
         return res.status(401).json({
           message: "Credencial do Google inválida.",
         });
       }
 
+      const nome = payload.name;
       const email = payload.email;
       const imageUrl = payload.picture ?? null;
 
@@ -274,6 +276,7 @@ export class UsuarioController {
 
       if (!usuario) {
         const novoUsuario = await usuarioService.createGoogle({
+          nome,
           email,
           imageUrl,
           emailVerified: true,
@@ -601,14 +604,15 @@ export class UsuarioController {
       }
 
       const usuarioId = req.usuario.id;
-      const { phone } = req.body;
+      const { nome, phone } = req.body;
 
-      if (phone === undefined) {
+      if (nome === undefined && phone === undefined) {
         return res.status(400).json({
           message: "Nenhum dado foi informado para atualização.",
         });
       }
       const usuario = await usuarioService.updatePerfil(usuarioId, {
+        nome,
         phone,
       });
       return res

@@ -88,10 +88,12 @@ export class UsuarioService {
     return prisma.usuario.update({
       where: { id },
       data: {
+        ...(data.nome !== undefined && { nome: data.nome }),
         ...(data.phone !== undefined && { phone: data.phone }),
       },
       select: {
         id: true,
+        nome: true,
         email: true,
         imageUrl: true,
         phone: true,
