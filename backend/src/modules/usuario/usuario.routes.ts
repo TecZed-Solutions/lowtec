@@ -27,6 +27,8 @@ rotaUsuario.post("/login-local", usuarioController.loginLocal);
 
 rotaUsuario.post("/login-google", usuarioController.loginGoogle);
 
+rotaUsuario.post("/logout", usuarioController.logout);
+
 rotaUsuario.post(
   "/enviar-reset-token",
   restrictRateLimit,

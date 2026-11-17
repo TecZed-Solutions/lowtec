@@ -7,7 +7,7 @@ import router from "./routes/index.js";
 //Cria o app express
 const app: Application = express();
 
-app.use(cors());
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());

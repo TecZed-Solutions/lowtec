@@ -9,6 +9,12 @@ const rotaPagamento = Router();
 
 rotaPagamento.use(globalRateLimit);
 
+rotaPagamento.get(
+  "/todos",
+  usuarioMiddleware,
+  pagamentoController.getPagamentosUsuario,
+);
+
 rotaPagamento.post(
   "/create",
   createPaymentRateLimit,

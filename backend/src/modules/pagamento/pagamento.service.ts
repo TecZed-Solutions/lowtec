@@ -18,13 +18,33 @@ export class PagamentoService {
   }
 
   async getPagamentosUsuario(
-    id: string,
+    usuarioId: string,
     options?: { status?: StatusPagamento; metodo?: MetodoPagamento },
-  ): Promise<Pagamento[]> {
+  ) {
     return prisma.pagamento.findMany({
       where: {
-        usuarioId: id,
-        ...options,
+        usuarioId,
+        status: options?.status,
+        metodo: options?.metodo,
+      },
+      select: {
+        id: true,
+        status: true,
+        paidAt: true,
+        value: true,
+        discount: true,
+        metodo: true,
+        compras: {
+          select: {
+            produto: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+        createdAt: true,
       },
       orderBy: {
         createdAt: "desc",

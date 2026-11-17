@@ -1,8 +1,7 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { AuthRequest } from "../../types/auth.js";
 import {
   GatewayPagamento,
-  MetodoPagamento,
   StatusPagamento,
 } from "@prisma/client";
 import { pagamentoService } from "./pagamento.service.js";
@@ -10,6 +9,30 @@ import { createInfinitePayLink } from "../../integration/infinitePay/index.js";
 import { compraService } from "../compra/compra.service.js";
 
 export class PagamentoController {
+  async getPagamentosUsuario(req: AuthRequest, res: Response) {
+    try {
+      if (!req.usuario?.id) {
+        return res.status(401).json({
+          message: "Usuário não autenticado.",
+        });
+      }
+
+      const usuarioId = req.usuario.id;
+
+      const pagamentos = await pagamentoService.getPagamentosUsuario(usuarioId);
+
+      return res.status(200).json({
+        pagamentos,
+      });
+    } catch (error) {
+      console.error("Erro ao buscar pagamentos do usuário:", error);
+
+      return res.status(500).json({
+        message: "Erro interno ao buscar pagamentos.",
+      });
+    }
+  }
+
   async create(req: AuthRequest, res: Response) {
     try {
       if (!req.usuario) {
@@ -74,7 +97,6 @@ export class PagamentoController {
 
           return res.status(201).json({
             message: "Checkout criado com sucesso.",
-            pagamento: pagamentoAtualizado,
             checkoutUrl: pagamentoAtualizado.checkoutUrl,
           });
         }

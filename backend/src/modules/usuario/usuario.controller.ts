@@ -9,7 +9,7 @@ import { AuthRequest } from "../../types/auth.js";
 import sharp from "sharp";
 import { r2Service } from "../../utils/cloudflareR2.service.js";
 import { R2_PUBLIC_URL } from "../../config/r2.js";
-import { isValidEmail, isValidPassword } from "../../utils/regex.js";
+import { isValidEmail, isValidPassword, slugify } from "../../utils/regex.js";
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -344,6 +344,27 @@ export class UsuarioController {
     }
   }
 
+  async logout(_req: Request, res: Response) {
+    try {
+      res.clearCookie("JWT_USUARIO", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+      });
+
+      return res.status(200).json({
+        message: "Logout realizado com sucesso.",
+      });
+    } catch (error) {
+      console.error("Erro ao realizar logout:", error);
+
+      return res.status(500).json({
+        message: "Erro ao realizar logout.",
+      });
+    }
+  }
+
   async sendTokenPassword(req: Request, res: Response) {
     try {
       const { email } = req.body;
@@ -664,8 +685,10 @@ export class UsuarioController {
         })
         .toBuffer();
 
+      const nomeFormatado = slugify(usuario.nome);
+
       // Gera uma nova Key para o arquivo
-      const imageKey = `usuarios/${usuarioId}/avatar/${crypto.randomUUID()}.webp`;
+      const imageKey = `avatars/${nomeFormatado}/${crypto.randomUUID()}.webp`;
 
       // Envia a imagem processada para o R2
       await r2Service.upload({
