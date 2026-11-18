@@ -3,9 +3,14 @@ import {
   DeleteObjectCommand,
   GetObjectCommand,
 } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { Readable } from "node:stream";
 
-import { r2, R2_BUCKET_NAME } from "../config/r2.js";
+import {
+  r2,
+  R2_BUCKET_PRIVATE_NAME,
+  R2_BUCKET_PUBLIC_NAME,
+} from "../config/r2.js";
 
 interface UploadArquivoDTO {
   key: string;
@@ -20,7 +25,23 @@ interface DownloadArquivoDTO {
 }
 
 class R2Service {
-  async download({ key, bucket = R2_BUCKET_NAME, signal }: DownloadArquivoDTO) {
+  async getDownloadUrl(key: string): Promise<string> {
+    return getSignedUrl(
+      r2,
+      new GetObjectCommand({
+        Bucket: R2_BUCKET_PRIVATE_NAME,
+        Key: key,
+        ResponseContentDisposition: "attachment",
+      }),
+      { expiresIn: 60 },
+    );
+  }
+
+  async download({
+    key,
+    bucket = R2_BUCKET_PRIVATE_NAME,
+    signal,
+  }: DownloadArquivoDTO) {
     const object = await r2.send(
       new GetObjectCommand({
         Bucket: bucket,
@@ -43,7 +64,7 @@ class R2Service {
   async upload({ key, buffer, contentType }: UploadArquivoDTO) {
     await r2.send(
       new PutObjectCommand({
-        Bucket: R2_BUCKET_NAME,
+        Bucket: R2_BUCKET_PUBLIC_NAME,
         Key: key,
         Body: buffer,
         ContentType: contentType,
@@ -56,7 +77,7 @@ class R2Service {
   async delete(key: string) {
     await r2.send(
       new DeleteObjectCommand({
-        Bucket: R2_BUCKET_NAME,
+        Bucket: R2_BUCKET_PUBLIC_NAME,
         Key: key,
       }),
     );

@@ -13,6 +13,7 @@ export interface AuthRequest extends Request {
 export interface AdminToken {
   id: string;
   username: string;
+  validated: boolean;
 }
 
 export interface AdminAuthRequest extends Request {

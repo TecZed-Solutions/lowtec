@@ -10,17 +10,27 @@ const rotaAdmin = Router();
 rotaAdmin.use(globalRateLimit);
 
 //REMOVER ESSA ROTA ABAIXO EM PRODUÇÃO - CREATE NÃO PODE IR EM PRODUÇÃO
-rotaAdmin.post("/create", adminController.create);
+// rotaAdmin.post("/create", adminController.create);
 //ATENÇÃO
+
+rotaAdmin.post(
+  "/verificar-factor",
+  restrictRateLimit,
+  adminController.verificarFactor,
+);
 
 rotaAdmin.post("/login", restrictRateLimit, adminController.login);
 
+rotaAdmin.post("/logout", restrictRateLimit, adminController.logout);
+
 rotaAdmin.get("/faturamento", adminMiddleware, adminController.getFaturamento);
+
 rotaAdmin.get(
   "/usuarios",
   adminMiddleware,
   adminController.getQuantidadeUsuarios,
 );
+
 rotaAdmin.get(
   "/compras",
   adminMiddleware,

@@ -14,6 +14,36 @@ import { isValidEmail, isValidPassword, slugify } from "../../utils/regex.js";
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export class UsuarioController {
+  async getInfoUsuario(req: AuthRequest, res: Response) {
+    try {
+      res.setHeader("Cache-Control", "private, no-store");
+
+      if (!req.usuario?.id) {
+        return res.status(401).json({
+          message: "Usuário não autenticado.",
+        });
+      }
+
+      const usuario = await usuarioService.getInfoUsuario(req.usuario.id);
+
+      if (!usuario) {
+        return res.status(404).json({
+          message: "Usuário não encontrado.",
+        });
+      }
+
+      return res.status(200).json({
+        usuario,
+      });
+    } catch (error) {
+      console.error("Erro ao buscar informações do usuário:", error);
+
+      return res.status(500).json({
+        message: "Erro interno ao buscar informações do usuário.",
+      });
+    }
+  }
+
   async registroLocal(req: Request, res: Response) {
     try {
       const { nome, email, password, confirmPassword } = req.body;

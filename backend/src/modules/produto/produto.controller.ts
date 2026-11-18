@@ -2,7 +2,6 @@ import { Response } from "express";
 import { NoSuchKey } from "@aws-sdk/client-s3";
 import { Prisma } from "@prisma/client";
 import { Readable } from "node:stream";
-import { pipeline } from "node:stream/promises";
 import { AdminAuthRequest, AuthRequest } from "../../types/auth.js";
 import { produtoService } from "./produto.service.js";
 
@@ -36,7 +35,8 @@ export class ProdutoController {
         !formatoMonetario.test(String(valor))
       ) {
         return res.status(400).json({
-          message: "Valor deve ser não negativo, até 99999999.99 e ter no máximo duas casas decimais.",
+          message:
+            "Valor deve ser não negativo, até 99999999.99 e ter no máximo duas casas decimais.",
         });
       }
 
@@ -45,7 +45,8 @@ export class ProdutoController {
         !formatoMonetario.test(String(discount))
       ) {
         return res.status(400).json({
-          message: "Desconto deve ser não negativo, até 99999999.99 e ter no máximo duas casas decimais.",
+          message:
+            "Desconto deve ser não negativo, até 99999999.99 e ter no máximo duas casas decimais.",
         });
       }
 
@@ -101,31 +102,18 @@ export class ProdutoController {
     res.once("close", abortDownload);
 
     try {
-      const arquivo = await produtoService.download(
-        req.usuario.id,
-        produtoId,
-        abortController.signal,
-      );
+      const arquivo = await produtoService.download(req.usuario.id, produtoId);
 
       if (!arquivo) {
         return res.status(404).json({
-          message: "Produto não encontrado ou sem compra com pagamento confirmado.",
+          message:
+            "Produto não encontrado ou sem compra com pagamento confirmado.",
         });
       }
 
-      stream = arquivo.stream;
+      res.setHeader("Cache-Control", "private, no-store");
 
-      if (res.destroyed) return;
-
-      res.attachment(arquivo.filename);
-      res.setHeader("Content-Type", arquivo.contentType);
-      res.setHeader("X-Content-Type-Options", "nosniff");
-
-      if (arquivo.contentLength !== undefined) {
-        res.setHeader("Content-Length", arquivo.contentLength);
-      }
-
-      await pipeline(stream, res, { signal: abortController.signal });
+      return res.status(200).json(arquivo);
     } catch (error) {
       if (abortController.signal.aborted) return;
 

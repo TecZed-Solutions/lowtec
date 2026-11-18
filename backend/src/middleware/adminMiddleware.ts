@@ -11,17 +11,10 @@ export async function adminMiddleware(
 ) {
   try {
     const token = req.cookies?.JWT_ADMIN;
-    const twoFactor = req.header("twoFactor");
 
     if (!token) {
       return res.status(401).json({
         message: "Administrador não autenticado.",
-      });
-    }
-
-    if (!twoFactor) {
-      return res.status(401).json({
-        message: "Tenta de outra forma! Aqui não passarás.",
       });
     }
 
@@ -55,9 +48,7 @@ export async function adminMiddleware(
       });
     }
 
-    const fatorValido = await bcrypt.compare(twoFactor, admin.twoFactor);
-
-    if (!fatorValido) {
+    if (!decoded.validated) {
       await prisma.admin.update({
         where: { id: admin.id },
         data: { active: false },

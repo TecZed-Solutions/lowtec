@@ -3,8 +3,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { adminService } from "./admin.service.js";
 import { isValidPassword, isValidTwoFactor } from "../../utils/regex.js";
-import { AdminAuthRequest } from "../../types/auth.js";
+import { AdminAuthRequest, AdminToken } from "../../types/auth.js";
 import { StatusPagamento } from "@prisma/client";
+import prisma from "../../config/prisma.js";
 
 export class AdminController {
   async login(req: Request, res: Response) {
@@ -53,6 +54,7 @@ export class AdminController {
         {
           id: admin.id,
           username: admin.username,
+          validated: false,
         },
         secret,
         {
@@ -81,6 +83,112 @@ export class AdminController {
 
       return res.status(500).json({
         message: "Erro interno ao realizar login.",
+      });
+    }
+  }
+
+  async logout(_req: Request, res: Response) {
+    try {
+      res.clearCookie("JWT_ADMIN", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+      });
+
+      return res.status(200).json({
+        message: "Logout realizado com sucesso.",
+      });
+    } catch (error) {
+      console.error("Erro ao realizar logout:", error);
+
+      return res.status(500).json({
+        message: "Erro ao realizar logout.",
+      });
+    }
+  }
+
+  async verificarFactor(req: Request, res: Response) {
+    try {
+      const { twoFactor } = req.body;
+      const token = req.cookies?.JWT_ADMIN;
+
+      if (!token) {
+        return res.status(401).json({
+          message: "Administrador não autenticado.",
+        });
+      }
+
+      const secret = process.env.JWT_ADMIN;
+
+      if (!secret) {
+        console.error("JWT_ADMIN não configurado.");
+
+        return res.status(500).json({
+          message: "Erro interno de configuração.",
+        });
+      }
+
+      const decoded = jwt.verify(token, secret) as AdminToken;
+
+      const admin = await prisma.admin.findUnique({
+        where: {
+          id: decoded.id,
+        },
+      });
+
+      if (!admin) {
+        return res.status(401).json({
+          message: "Administrador não encontrado.",
+        });
+      }
+
+      if (!admin.active) {
+        return res.status(401).json({
+          message: "Administrador desativado.",
+        });
+      }
+
+      const validFactor = await bcrypt.compare(twoFactor, admin.twoFactor);
+
+      if (!validFactor) {
+        await prisma.admin.update({
+          where: { id: admin.id },
+          data: { active: false },
+        });
+
+        return res.status(401).json({
+          message: "Se conseguir passar daqui agora, é GODLIKE paizão!",
+        });
+      }
+
+      const newToken = jwt.sign(
+        {
+          id: admin.id,
+          username: admin.username,
+          validated: true,
+        },
+        secret,
+        {
+          expiresIn: "1h",
+        },
+      );
+
+      res.cookie("JWT_ADMIN", newToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+        maxAge: 60 * 60 * 1000,
+      });
+      return res.status(200).json({
+        message: "Verificação realizada com sucesso.",
+      });
+    } catch (error) {
+      console.error("Erro ao realizar verificação do administrador:", error);
+
+      return res.status(500).json({
+        message: "Erro interno ao realizar verificação.",
       });
     }
   }
@@ -201,6 +309,7 @@ export class AdminController {
       });
     }
   }
+
   async getQuantidadeUsuarios(req: AdminAuthRequest, res: Response) {
     try {
       if (!req.admin) {

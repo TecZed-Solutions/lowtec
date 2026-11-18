@@ -22,6 +22,24 @@ export class UsuarioService {
     });
   }
 
+  async getInfoUsuario(
+    id: string,
+  ): Promise<
+    Pick<Usuario, "id" | "nome" | "email" | "imageUrl" | "phone" | "provider"> | null
+  > {
+    return prisma.usuario.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        nome: true,
+        email: true,
+        imageUrl: true,
+        phone: true,
+        provider: true,
+      },
+    });
+  }
+
   async findByEmailVerificationToken(token: string): Promise<Usuario | null> {
     return prisma.usuario.findFirst({
       where: {
