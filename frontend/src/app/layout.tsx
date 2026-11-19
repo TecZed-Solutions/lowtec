@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Titillium_Web, Karla, Chivo, Geist } from "next/font/google";
 import "./globals.css";
+import { siteDescription, siteName, siteTitle, siteUrl } from "@/config/site";
 import { UsuarioProvider } from "@/contexts/UsuarioContext";
 import { cn } from "@/lib/utils";
 
@@ -25,8 +26,22 @@ const chivo = Chivo({
 });
 
 export const metadata: Metadata = {
-  title: "LowTec",
-  description: "Plataforma de vendas de produtos da TecZed.",
+  metadataBase: new URL(siteUrl),
+  title: `${siteName} | ${siteTitle}`,
+  description: siteDescription,
+  applicationName: siteName,
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName,
+    title: siteTitle,
+    description: siteDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+  },
   authors: [{ name: "TecZed", url: "https://www.teczed.com.br" }],
   creator: "TecZed",
   publisher: "TecZed",

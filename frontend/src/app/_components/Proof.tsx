@@ -14,7 +14,7 @@ const EXAMPLE = {
   after: "/proof/after.png",
   fileName: "foto-original.png",
   prompt:
-    '{ "prompt": "Create a photorealistic night portrait of the person in Image 1 standing against the wall of a graffiti-covered road tunnel as cars rush past. It should look like a real, unretouched photograph shot on film. Use Image 1 as the only identity reference and keep the real face from it...',
+    "Retrato de inverno em formato horizontal, com a pessoa sentada numa pedra coberta de neve, no alto da montanha, ao lado de uma prancha de snowboard fincada na neve. Ela veste roupa de esqui toda preta e óculos escuros esportivos, com uma postura tranquila. À direita, pinheiros cobertos de gelo descem pelas encostas, sob um céu azul intenso e sem nuvens.",
 } as const;
 
 export default function Proof() {

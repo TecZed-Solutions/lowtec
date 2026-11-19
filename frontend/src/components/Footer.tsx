@@ -51,17 +51,21 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center gap-6">
-            <p className="text-text3">
-              Desenvolvido por{" "}
-              <a
-                href="https://www.teczed.com.br"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-text2 hover:text-marca font-semibold transition-colors"
-              >
-                TecZed
-              </a>
-            </p>
+            <p className="text-text3">Desenvolvido por</p>
+            <a
+              href="https://www.teczed.com.br"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-sm transition-opacity hover:opacity-80"
+            >
+              <Image
+                src="/teczed_logo.svg"
+                alt="TecZed"
+                width={1254}
+                height={1254}
+                className="size-12"
+              />
+            </a>
 
             <a
               href="#hero"
@@ -72,12 +76,6 @@ export default function Footer() {
             </a>
           </div>
         </div>
-
-        <p className="text-text3 mt-6 text-center text-xs leading-relaxed sm:text-left">
-          Os resultados variam conforme a IA utilizada e a foto enviada.
-          ChatGPT, Gemini e Grok são marcas de seus respectivos donos; a LowTec
-          não tem vínculo com essas empresas.
-        </p>
       </div>
     </footer>
   );

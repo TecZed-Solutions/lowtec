@@ -19,7 +19,7 @@ export const TESTIMONIALS = [
 
 export const BEFORE_AFTER = [
   {
-    src: "/results/before.png",
+    src: "/results/before.jpg",
     alt: "Foto original: selfie simples, de frente, tirada em casa",
     badge: "Antes",
     highlight: false,

@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import Footer from "@/components/Footer";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import Faq from "./_components/Faq";
@@ -7,6 +9,10 @@ import Problem from "./_components/Problem";
 import Proof from "./_components/Proof";
 import Solution from "./_components/Solution";
 import Testimonials from "./_components/Testimonials";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
