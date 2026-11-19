@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Check, Copy, Pause, Play } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 
 import {
   Carousel,
@@ -17,32 +17,32 @@ import Autoplay from "embla-carousel-autoplay";
 
 const CATEGORIES = [
   {
+    id: "fantasia",
+    label: "Fantasia",
+    image: "/prompt-showcase/proof_1.png",
+    prompt:
+      "Transforme sua aparência em um poderoso guerreiro nórdico, com vestimentas medievais, espada ornamentada e uma atmosfera cinematográfica sombria.",
+  },
+  {
+    id: "viagem",
+    label: "Viagem",
+    image: "/prompt-showcase/proof_2.png",
+    prompt:
+      "Transforme sua foto de referência em um retrato realista em uma paisagem montanhosa coberta de neve, com iluminação natural e estilo fotográfico espontâneo.",
+  },
+  {
+    id: "lifestyle",
+    label: "Lifestyle",
+    image: "/prompt-showcase/proof_3.png",
+    prompt:
+      "Explore um visual urbano e despojado ao lado de um carro esportivo, com iluminação neon e uma atmosfera noturna cinematográfica.",
+  },
+  {
     id: "angulos",
-    label: "Ângulos",
-    image: "/prompt-showcase/angulos.jpg",
+    label: "Angulos",
+    image: "/prompt-showcase/proof_4.png",
     prompt:
-      "Mantenha o rosto da foto enviada. Retrato em plano médio, câmera levemente abaixo da linha dos olhos, rosto em 3/4 virado para a esquerda, olhar direto para a lente, 85 mm f/1.8, fundo desfocado.",
-  },
-  {
-    id: "poses",
-    label: "Poses",
-    image: "/prompt-showcase/poses.jpg",
-    prompt:
-      "Mantenha o rosto da foto enviada. Meio corpo, braços cruzados e ombros relaxados, leve inclinação da cabeça, sorriso discreto, postura segura de liderança, blazer escuro.",
-  },
-  {
-    id: "luz",
-    label: "Luz",
-    image: "/prompt-showcase/luz.jpg",
-    prompt:
-      "Mantenha o rosto da foto enviada. Luz suave de janela a 45 graus, rebatedor preenchendo as sombras, tons de pele naturais, contraste moderado, fundo neutro em cinza-claro.",
-  },
-  {
-    id: "efeitos",
-    label: "Efeitos",
-    image: "/prompt-showcase/efeitos.avif",
-    prompt:
-      "Mantenha o rosto da foto enviada. Fundo escuro com luz de contorno esverdeada, profundidade de campo rasa, grão fino de filme, acabamento de capa de revista.",
+      "Experimente uma perspectiva criativa com lente fisheye, distorção angular marcante, poses expressivas e um estilo editorial de moda.",
   },
 ] as const;
 
@@ -208,24 +208,9 @@ export default function ProductShowcase() {
             key={active.id}
             className="mt-5 motion-safe:animate-[prompt-in_.3s_ease-out]"
           >
-            <div className="border-marca text-text1 min-h-32 border-l-2 pl-4 text-[0.95rem] leading-relaxed">
+            <div className="border-marca text-text1 min-h-24 border-l-2 pl-4 text-[0.95rem] leading-relaxed">
               {active.prompt}
             </div>
-
-            <button
-              type="button"
-              onClick={handleCopy}
-              className="font-ui text-text2 hover:text-marca focus-visible:outline-marca mt-4 inline-flex items-center gap-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
-            >
-              {copied ? (
-                <Check size={16} aria-hidden="true" />
-              ) : (
-                <Copy size={16} aria-hidden="true" />
-              )}
-              <span aria-live="polite">
-                {copied ? "Prompt copiado" : "Copiar prompt"}
-              </span>
-            </button>
           </div>
         </div>
       </div>

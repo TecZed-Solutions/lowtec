@@ -75,9 +75,8 @@ export default function Solution() {
 
             <div className="text-center">
               <p className="font-display text-marca text-6xl leading-none font-black tracking-tight italic">
-                <span className="sr-only">+100</span>
+                <span className="sr-only">100</span>
                 <span aria-hidden="true">
-                  +
                   <NumberTicker
                     value={100}
                     className="text-marca min-w-[3ch] text-left tracking-tight"
@@ -101,9 +100,12 @@ export default function Solution() {
               {CATEGORIES.map(({ icon: Icon, label }) => (
                 <li
                   key={label}
-                  className="flex items-center gap-3 rounded-md bg-white/5 px-4 py-3 ring-1 ring-white/10"
+                  className="flex items-center gap-3 rounded-md bg-white/5 px-4 py-3 ring-1 ring-white/10 sm:last:col-span-2"
                 >
-                  <Icon className="text-marca size-4" aria-hidden="true" />
+                  <Icon
+                    className="text-marca size-4 shrink-0"
+                    aria-hidden="true"
+                  />
                   <span className="font-ui text-text1 text-sm font-semibold">
                     {label}
                   </span>
@@ -112,7 +114,8 @@ export default function Solution() {
             </ul>
 
             <p className="text-text3 mt-4 text-sm">
-              + várias outras categorias dentro do e-book.
+              20 prompts por categoria, divididos em 4 formatos: perfil, feed,
+              stories e capa.
             </p>
           </article>
 
@@ -161,7 +164,7 @@ export default function Solution() {
         </div>
 
         <div className="mt-12 flex flex-col items-center gap-3">
-          <CtaButton href="#comprar">
+          <CtaButton href="/checkout">
             Quero o e-book
             <ArrowRight className="transition-transform group-hover:translate-x-1" />
           </CtaButton>

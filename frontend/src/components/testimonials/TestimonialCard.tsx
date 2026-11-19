@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 
 interface TestimonialCardProps {
   name: string;
-  detail: string;
   text: string;
   className?: string;
 }
@@ -20,7 +19,6 @@ function initials(name: string) {
 
 export default function TestimonialCard({
   name,
-  detail,
   text,
   className,
 }: TestimonialCardProps) {
@@ -45,10 +43,7 @@ export default function TestimonialCard({
         >
           {initials(name)}
         </span>
-        <div>
-          <p className="font-ui text-text1 text-sm font-bold">{name}</p>
-          <p className="text-text3 text-xs">{detail}</p>
-        </div>
+        <p className="font-ui text-text1 text-sm font-bold">{name}</p>
       </figcaption>
     </figure>
   );

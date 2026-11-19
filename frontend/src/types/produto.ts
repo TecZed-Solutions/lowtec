@@ -3,5 +3,4 @@ export interface Produto {
   name: string;
   valor: string;
   discount: string;
-  downloadUrl: string;
 }

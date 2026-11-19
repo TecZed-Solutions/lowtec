@@ -10,11 +10,11 @@ import {
 } from "@/components/ui/terminal";
 
 const EXAMPLE = {
-  before: "/proof/luz.jpg",
-  after: "/proof/angulos.jpg",
-  fileName: "foto-original.jpg",
+  before: "/proof/before.png",
+  after: "/proof/after.png",
+  fileName: "foto-original.png",
   prompt:
-    "Mantenha o rosto da foto enviada. Retrato profissional de estúdio, meio corpo, câmera na altura dos olhos, rosto em 3/4 com olhar direto para a lente, blazer escuro, luz suave de janela a 45 graus com rebatedor, fundo cinza-claro neutro, 85 mm f/1.8, tons de pele naturais...",
+    '{ "prompt": "Create a photorealistic night portrait of the person in Image 1 standing against the wall of a graffiti-covered road tunnel as cars rush past. It should look like a real, unretouched photograph shot on film. Use Image 1 as the only identity reference and keep the real face from it...',
 } as const;
 
 export default function Proof() {
@@ -112,14 +112,14 @@ export default function Proof() {
               </div>
 
               <AnimatedSpan className="text-marca">
-                ✔ Retrato de estúdio gerado.
+                ✔ Capa de estúdio gerada.
               </AnimatedSpan>
             </Terminal>
           </div>
         </div>
 
         <div className="mt-12 flex flex-col items-center gap-3 lg:mt-28">
-          <CtaButton href="#comprar">
+          <CtaButton href="/checkout">
             Quero esse resultado
             <ArrowRight className="transition-transform group-hover:translate-x-1" />
           </CtaButton>

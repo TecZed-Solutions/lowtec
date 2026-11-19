@@ -1,6 +1,4 @@
-import { Download } from "lucide-react";
-
-import CtaButton from "@/components/CtaButton";
+import BotaoDownload from "@/components/BotaoDownload";
 import EbookCover from "@/components/EbookCover";
 import { formatarData } from "@/lib/utils";
 import type { CompraComProduto } from "@/types/compra";
@@ -19,7 +17,14 @@ export default function ProductsSection({
         Meus produtos
       </h2>
 
-      <ul className="mt-5 grid gap-4">
+      {compras.length === 0 && (
+        <p className="bg-cartao text-text3 mt-5 rounded-xl p-6 text-center text-sm ring-1 ring-white/10">
+          Você ainda não tem produtos. Assim que o pagamento for confirmado, o
+          e-book aparece aqui.
+        </p>
+      )}
+
+      <ul className="mt-5 grid gap-4 empty:hidden">
         {compras.map(({ id, createdAt, produto }) => (
           <li
             key={id}
@@ -40,22 +45,18 @@ export default function ProductsSection({
                 </h3>
                 {/* O model Produto não tem descrição; fixa, como a capa */}
                 <p className="text-text2 mt-3 leading-relaxed">
-                  +100 prompts organizados por categoria para transformar a sua
-                  foto em um retrato profissional.
+                  100 prompts organizados por categoria para transformar você em
+                  100 versões diferentes.
                 </p>
                 <p className="text-text3 mt-3 text-sm">
                   Comprado em {formatarData(createdAt)}
                 </p>
               </div>
 
-              <CtaButton
-                href={produto.downloadUrl}
-                download
-                className="self-start"
-              >
-                <Download className="size-4.5" aria-hidden="true" />
-                Baixar e-book
-              </CtaButton>
+              <BotaoDownload
+                produtoId={produto.id}
+                className="justify-items-start"
+              />
             </div>
           </li>
         ))}

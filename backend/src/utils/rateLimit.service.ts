@@ -22,7 +22,7 @@ export const loginRateLimit = rateLimit({
 
 export const restrictRateLimit = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 Hora
-  limit: 3, // máximo de 3 tentativas
+  limit: 10, // máximo de 10 tentativas
   standardHeaders: "draft-8",
   legacyHeaders: false,
   message: {

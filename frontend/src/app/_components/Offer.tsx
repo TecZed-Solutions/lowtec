@@ -3,8 +3,12 @@ import { ArrowRight, Check } from "lucide-react";
 import CtaButton from "@/components/CtaButton";
 import EbookCover from "@/components/EbookCover";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
+import { PRODUCT } from "@/config/product";
+import { formatarMoeda, formatarValor } from "@/lib/utils";
 
 import { OFFER, TRUST } from "@/constants/offer";
+
+const temDesconto = Number(PRODUCT.discount) > 0;
 
 export default function Offer() {
   return (
@@ -81,12 +85,14 @@ export default function Offer() {
               </ul>
 
               <div className="border-t border-dashed border-white/10 pt-6">
-                <p className="text-text3 text-sm">
-                  De <s>R$ {OFFER.fullPrice}</s> por apenas
-                </p>
+                {temDesconto && (
+                  <p className="text-text3 text-sm">
+                    De <s>{formatarMoeda(PRODUCT.valor)}</s> por apenas
+                  </p>
+                )}
                 <p className="font-display text-marca mt-1 text-6xl leading-none font-black tracking-tight italic">
                   <span className="mr-1 align-top text-2xl">R$</span>
-                  {OFFER.price}
+                  {formatarValor(PRODUCT.valor, PRODUCT.discount)}
                 </p>
                 <p className="text-text3 mt-2 text-sm">
                   Pagamento único · acesso imediato

@@ -69,8 +69,9 @@ export default function Hero() {
             </h1>
 
             <p className="text-text2 max-w-xl text-center text-lg leading-relaxed lg:text-left">
-              Prompts prontos de ângulo, pose, luz e efeito para aplicar na sua
-              foto com IA e chegar a um resultado de estúdio, sem fotógrafo.
+              Com 100 prompts prontos, uma foto sua vira retrato de LinkedIn,
+              viagem pelo mundo, ensaio de luxo ou cena de filme, preservando o
+              seu rosto. É só escolher, copiar e colar na IA.
             </p>
 
             <motion.div
@@ -79,7 +80,7 @@ export default function Hero() {
               animate="visible"
               className="flex flex-col items-center gap-5 lg:items-start"
             >
-              <CtaButton href="#comprar">
+              <CtaButton href="/checkout">
                 Adquirir agora
                 <ArrowRight className="transition-transform group-hover:translate-x-1" />
               </CtaButton>

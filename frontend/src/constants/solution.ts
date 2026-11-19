@@ -1,4 +1,4 @@
-import { Briefcase, Clapperboard, Gem, Palette } from "lucide-react";
+import { Aperture, Briefcase, Gem, Plane, WandSparkles } from "lucide-react";
 import {
   RiGeminiFill,
   RiGrokAiFill,
@@ -7,10 +7,11 @@ import {
 } from "react-icons/ri";
 
 export const CATEGORIES = [
-  { icon: Briefcase, label: "Profissional e carreira" },
+  { icon: Briefcase, label: "Profissional" },
+  { icon: WandSparkles, label: "Criativo e irreal" },
+  { icon: Plane, label: "Viagem e lugares" },
   { icon: Gem, label: "Lifestyle e luxo" },
-  { icon: Clapperboard, label: "Cinematográfico e fictício" },
-  { icon: Palette, label: "Artística e editorial" },
+  { icon: Aperture, label: "Iluminação, ângulos, enquadramentos e efeitos" },
 ] as const;
 
 export const STEPS = [

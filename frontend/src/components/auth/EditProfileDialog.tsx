@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { Smartphone, UserPen, UserRound } from "lucide-react";
 
 import Button from "@/components/Button";
+import FormAlert from "@/components/FormAlert";
 import Input from "@/components/Input";
 import {
   Dialog,
@@ -12,6 +14,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { UsuarioContext } from "@/contexts/UsuarioContext";
+import { useAuth } from "@/hooks/useAuth";
+import { useMask } from "@/hooks/useMask";
+import { usuarioService } from "@/services/usuario.service";
 
 interface EditProfileDialogProps {
   name: string;
@@ -22,12 +28,54 @@ export default function EditProfileDialog({
   name,
   phone,
 }: EditProfileDialogProps) {
-  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const { atualizarUsuario } = useAuth(UsuarioContext);
+  const { phone: mascararTelefone } = useMask();
+  const [aberto, setAberto] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
+  const [enviando, setEnviando] = useState(false);
+
+  const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const dados = new FormData(event.currentTarget);
+    const nome = String(dados.get("nome")).trim();
+    const celular = String(dados.get("celular")).replace(/\D/g, "");
+
+    if (!nome) {
+      setErro("Informe o seu nome.");
+      return;
+    }
+
+    if (celular && celular.length < 10) {
+      setErro("Informe o celular completo, com DDD.");
+      return;
+    }
+
+    setErro(null);
+    setEnviando(true);
+    const resultado = await usuarioService.atualizarPerfil(
+      nome,
+      celular || null,
+    );
+    setEnviando(false);
+
+    if ("message" in resultado) {
+      setErro(resultado.message);
+      return;
+    }
+
+    atualizarUsuario({ nome: resultado.nome, phone: resultado.phone });
+    setAberto(false);
   };
 
   return (
-    <Dialog>
+    <Dialog
+      open={aberto}
+      onOpenChange={(proximo) => {
+        setAberto(proximo);
+        if (!proximo) setErro(null);
+      }}
+    >
       <DialogTrigger
         render={
           <Button variant="secondary" icon={UserPen} className="w-full">
@@ -66,10 +114,20 @@ export default function EditProfileDialog({
             inputMode="tel"
             name="celular"
             autoComplete="tel-national"
-            defaultValue={phone ?? ""}
+            defaultValue={mascararTelefone(phone ?? "")}
+            onChange={(event) => {
+              event.currentTarget.value = mascararTelefone(
+                event.currentTarget.value,
+              );
+            }}
             placeholder="(11) 91234-5678"
           />
-          <Button type="submit" className="mt-2 w-full py-3.5">
+          {erro && <FormAlert>{erro}</FormAlert>}
+          <Button
+            type="submit"
+            isLoading={enviando}
+            className="mt-2 w-full py-3.5"
+          >
             Salvar alterações
           </Button>
         </form>

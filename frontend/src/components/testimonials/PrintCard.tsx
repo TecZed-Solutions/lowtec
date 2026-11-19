@@ -1,46 +1,47 @@
 import Image from "next/image";
-import { ImagePlus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-interface TestimonialPrint {
-  src: string | null;
+interface ResultImage {
+  src: string;
   alt: string;
-  width: number;
-  height: number;
+  badge: string;
+  highlight: boolean;
 }
 
 interface PrintCardProps {
-  print: TestimonialPrint;
-  label: string;
+  image: ResultImage;
   className?: string;
 }
 
-export default function PrintCard({ print, label, className }: PrintCardProps) {
+export default function PrintCard({ image, className }: PrintCardProps) {
   return (
     <figure
       className={cn(
-        "bg-cartao ring-marca/20 rounded-xl p-2 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)] ring-1",
+        "bg-cartao ring-marca/20 relative rounded-xl p-2 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)] ring-1",
         className,
       )}
     >
-      {print.src ? (
+      <div className="relative aspect-9/16 overflow-hidden rounded-lg">
         <Image
-          src={print.src}
-          alt={print.alt}
-          width={print.width}
-          height={print.height}
+          src={image.src}
+          alt={image.alt}
+          fill
           sizes="(min-width: 1024px) 14rem, 45vw"
-          className="h-auto w-full rounded-lg"
+          className="object-cover"
         />
-      ) : (
-        <div className="border-marca/30 bg-marca/5 flex aspect-9/16 flex-col items-center justify-center gap-3 rounded-lg border border-dashed p-4 text-center">
-          <ImagePlus className="text-marca size-8" aria-hidden="true" />
-          <span className="font-ui text-text2 text-sm font-semibold">
-            {label}
-          </span>
-        </div>
-      )}
+      </div>
+
+      <figcaption
+        className={cn(
+          "font-ui absolute top-4 left-4 -skew-x-12 px-3 py-1.5 text-sm font-black",
+          image.highlight
+            ? "bg-marca text-fundo"
+            : "bg-fundo/80 text-text1 ring-1 ring-white/15 backdrop-blur-sm",
+        )}
+      >
+        <span className="inline-block skew-x-12">{image.badge}</span>
+      </figcaption>
     </figure>
   );
 }

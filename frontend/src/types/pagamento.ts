@@ -1,4 +1,3 @@
-import type { Compra } from "./compra";
 import type { Produto } from "./produto";
 
 export type StatusPagamento =
@@ -7,7 +6,6 @@ export type MetodoPagamento = "PIX" | "CREDIT_CARD" | "DEBIT_CARD";
 
 export interface Pagamento {
   id: string;
-  usuarioId: string;
   status: StatusPagamento;
   paidAt: string | null;
   value: string;
@@ -17,5 +15,5 @@ export interface Pagamento {
 }
 
 export interface PagamentoComCompras extends Pagamento {
-  compras: (Compra & { produto: Pick<Produto, "id" | "name"> })[];
+  compras: { produto: Pick<Produto, "id" | "name"> }[];
 }

@@ -21,6 +21,6 @@ export const NAVIGATION = [
   },
   {
     name: "Comprar",
-    href: "#comprar",
+    href: "/checkout",
   },
 ];

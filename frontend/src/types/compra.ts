@@ -1,3 +1,4 @@
+import { Pagamento } from "./pagamento";
 import type { Produto } from "./produto";
 
 export interface Compra {
@@ -5,6 +6,7 @@ export interface Compra {
   usuarioId: string;
   produtoId: string;
   pagamentoId: string;
+  pagamento: Pagamento;
   valor: string;
   discount: string;
   createdAt: string;

@@ -32,7 +32,7 @@ export default function Faq() {
             conversa.
           </p>
 
-          <CtaButton href="#comprar">
+          <CtaButton href="/checkout">
             Quero o e-book
             <ArrowRight className="transition-transform group-hover:translate-x-1" />
           </CtaButton>

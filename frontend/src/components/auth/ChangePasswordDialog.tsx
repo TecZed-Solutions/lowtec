@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { KeyRound } from "lucide-react";
 
 import Button from "@/components/Button";
+import FormAlert from "@/components/FormAlert";
 import Input from "@/components/Input";
 import {
   Dialog,
@@ -12,14 +14,61 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { MENSAGEM_SENHA, senhaValida } from "@/lib/utils";
+import { usuarioService } from "@/services/usuario.service";
 
 export default function ChangePasswordDialog() {
-  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const [erro, setErro] = useState<string | null>(null);
+  const [sucesso, setSucesso] = useState<string | null>(null);
+  const [enviando, setEnviando] = useState(false);
+
+  const limparMensagens = () => {
+    setErro(null);
+    setSucesso(null);
+  };
+
+  const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const formulario = event.currentTarget;
+    const dados = new FormData(formulario);
+    const novaSenha = String(dados.get("novaSenha"));
+    const confirmarSenha = String(dados.get("confirmarSenha"));
+
+    limparMensagens();
+
+    if (!senhaValida(novaSenha)) {
+      setErro(MENSAGEM_SENHA);
+      return;
+    }
+
+    if (novaSenha !== confirmarSenha) {
+      setErro("As senhas não coincidem.");
+      return;
+    }
+
+    setEnviando(true);
+    const resultado = await usuarioService.redefinirSenha(
+      novaSenha,
+      confirmarSenha,
+    );
+    setEnviando(false);
+
+    if (typeof resultado !== "string") {
+      setErro(resultado.message);
+      return;
+    }
+
+    formulario.reset();
+    setSucesso(resultado);
   };
 
   return (
-    <Dialog>
+    <Dialog
+      onOpenChange={(aberto) => {
+        if (!aberto) limparMensagens();
+      }}
+    >
       <DialogTrigger
         render={
           <Button variant="secondary" icon={KeyRound} className="w-full">
@@ -62,7 +111,13 @@ export default function ChangePasswordDialog() {
             minLength={8}
             required
           />
-          <Button type="submit" className="mt-2 w-full py-3.5">
+          {erro && <FormAlert>{erro}</FormAlert>}
+          {sucesso && <FormAlert tipo="sucesso">{sucesso}</FormAlert>}
+          <Button
+            type="submit"
+            isLoading={enviando}
+            className="mt-2 w-full py-3.5"
+          >
             Salvar nova senha
           </Button>
         </form>

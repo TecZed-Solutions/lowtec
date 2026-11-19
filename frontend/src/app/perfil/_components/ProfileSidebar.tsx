@@ -1,16 +1,26 @@
-import { LogOut, Mail, Smartphone } from "lucide-react";
+"use client";
+
+import { Mail, Smartphone } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 
 import ChangePasswordDialog from "@/components/auth/ChangePasswordDialog";
 import EditProfileDialog from "@/components/auth/EditProfileDialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { iniciais } from "@/lib/utils";
+import { useMask } from "@/hooks/useMask";
 import type { Usuario } from "@/types/usuario";
 
+import AvatarUpload from "./AvatarUpload";
+import BotaoSair from "./BotaoSair";
+
 export default function ProfileSidebar({ usuario }: { usuario: Usuario }) {
+  const { phone: mascararTelefone } = useMask();
+
   const dados = [
     { icon: Mail, label: "E-mail", value: usuario.email },
-    { icon: Smartphone, label: "Celular", value: usuario.phone },
+    {
+      icon: Smartphone,
+      label: "Celular",
+      value: usuario.phone ? mascararTelefone(usuario.phone) : null,
+    },
   ];
 
   return (
@@ -26,24 +36,13 @@ export default function ProfileSidebar({ usuario }: { usuario: Usuario }) {
         />
 
         <div className="flex flex-col items-center text-center">
-          <Avatar className="ring-marca/40 ring-offset-cartao size-20 ring-2 ring-offset-4 after:border-white/10">
-            <AvatarImage
-              src={usuario.imageUrl ?? undefined}
-              alt={`Foto de ${usuario.name}`}
-            />
-            <AvatarFallback
-              aria-hidden="true"
-              className="bg-fundo2 font-display text-marca text-2xl font-black italic"
-            >
-              {iniciais(usuario.name)}
-            </AvatarFallback>
-          </Avatar>
+          <AvatarUpload usuario={usuario} />
 
           <h2
             id="perfil-title"
             className="font-display text-text1 mt-5 text-2xl leading-tight font-black tracking-tight italic"
           >
-            {usuario.name}
+            {usuario.nome}
           </h2>
         </div>
 
@@ -68,7 +67,7 @@ export default function ProfileSidebar({ usuario }: { usuario: Usuario }) {
         </dl>
 
         <div className="mt-6 grid gap-3 border-t border-dashed border-white/10 pt-6">
-          <EditProfileDialog name={usuario.name} phone={usuario.phone} />
+          <EditProfileDialog name={usuario.nome} phone={usuario.phone} />
 
           {usuario.provider === "LOCAL" ? (
             <ChangePasswordDialog />
@@ -79,13 +78,7 @@ export default function ProfileSidebar({ usuario }: { usuario: Usuario }) {
             </p>
           )}
 
-          <button
-            type="button"
-            className="text-text3 hover:text-text1 flex cursor-pointer items-center justify-center gap-2 py-2 text-sm font-semibold transition-colors"
-          >
-            <LogOut className="size-4" aria-hidden="true" />
-            Sair da conta
-          </button>
+          <BotaoSair />
         </div>
       </div>
     </section>

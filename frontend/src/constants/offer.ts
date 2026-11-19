@@ -1,13 +1,11 @@
 import { CreditCard, LockKeyhole, Zap } from "lucide-react";
 
 export const OFFER = {
-  badge: "+100 prompts",
-  price: "XX,XX",
-  fullPrice: "XX,XX",
-  checkoutHref: "#comprar",
+  badge: "100 prompts",
+  checkoutHref: "/checkout",
   includes: [
-    "+100 prompts prontos para copiar e colar",
-    "Categorias de carreira, lifestyle, cinematográfico, editorial e mais",
+    "100 prompts prontos para copiar e colar",
+    "5 categorias, do retrato para o LinkedIn a cenas impossíveis",
     "Funciona no ChatGPT, Gemini, Grok e outras IAs com foto",
     "Acesso imediato ao e-book após a compra",
   ],

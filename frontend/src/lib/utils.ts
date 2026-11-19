@@ -25,8 +25,28 @@ const moeda = new Intl.NumberFormat("pt-BR", {
   currency: "BRL",
 });
 
+const regraSenha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+export const MENSAGEM_SENHA =
+  "A senha deve ter no mínimo 8 caracteres, incluindo letra maiúscula, minúscula e número.";
+
+export function senhaValida(senha: string) {
+  return regraSenha.test(senha);
+}
+
+const numero = new Intl.NumberFormat("pt-BR", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+function centavos(valor: string, desconto: string) {
+  return Math.round(Number(valor) * 100) - Math.round(Number(desconto) * 100);
+}
+
 export function formatarMoeda(valor: string, desconto = "0") {
-  const centavos =
-    Math.round(Number(valor) * 100) - Math.round(Number(desconto) * 100);
-  return moeda.format(centavos / 100);
+  return moeda.format(centavos(valor, desconto) / 100);
+}
+
+export function formatarValor(valor: string, desconto = "0") {
+  return numero.format(centavos(valor, desconto) / 100);
 }

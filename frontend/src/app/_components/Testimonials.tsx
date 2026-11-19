@@ -5,7 +5,7 @@ import PrintCard from "@/components/testimonials/PrintCard";
 import TestimonialCard from "@/components/testimonials/TestimonialCard";
 import { Marquee } from "@/components/ui/marquee";
 
-import { TESTIMONIAL_PRINTS, TESTIMONIALS } from "@/constants/testimonials";
+import { BEFORE_AFTER, TESTIMONIALS } from "@/constants/testimonials";
 
 const PRINT_TILT = ["-rotate-3 lg:translate-y-6", "rotate-3 -ml-6"] as const;
 
@@ -29,7 +29,7 @@ export default function Testimonials() {
           </h2>
 
           <p className="text-text2 text-lg leading-relaxed text-balance">
-            Prints e comentários enviados por clientes que já estão usando os
+            Fotos e comentários enviados por clientes que já estão usando os
             prompts do e-book.
           </p>
         </div>
@@ -41,17 +41,13 @@ export default function Testimonials() {
               className="bg-marca/15 pointer-events-none absolute inset-10 -z-10 rounded-full blur-[90px]"
             />
 
-            {TESTIMONIAL_PRINTS.map(
-              (print, index) =>
-                print && (
-                  <PrintCard
-                    key={index}
-                    print={print}
-                    label={`Print do cliente ${index + 1}`}
-                    className={`w-1/2 max-w-56 ${PRINT_TILT[index]}`}
-                  />
-                ),
-            )}
+            {BEFORE_AFTER.map((image, index) => (
+              <PrintCard
+                key={image.badge}
+                image={image}
+                className={`w-1/2 max-w-56 ${PRINT_TILT[index]}`}
+              />
+            ))}
           </div>
 
           <div className="min-w-0">
@@ -80,9 +76,9 @@ export default function Testimonials() {
             </div>
 
             <ul className="sr-only">
-              {TESTIMONIALS.map(({ name, detail, text }) => (
+              {TESTIMONIALS.map(({ name, text }) => (
                 <li key={name}>
-                  {name}, {detail}: {text}
+                  {name}: {text}
                 </li>
               ))}
             </ul>
@@ -90,7 +86,7 @@ export default function Testimonials() {
         </div>
 
         <div className="mt-12 flex flex-col items-center gap-3 lg:mt-16">
-          <CtaButton href="#comprar">
+          <CtaButton href="/checkout">
             Quero o meu resultado
             <ArrowRight className="transition-transform group-hover:translate-x-1" />
           </CtaButton>

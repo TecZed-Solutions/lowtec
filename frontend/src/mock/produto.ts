@@ -5,5 +5,4 @@ export const PRODUTO_EBOOK: Produto = {
   name: "Retratos com IA",
   valor: "0.00",
   discount: "0.00",
-  downloadUrl: "#",
 };

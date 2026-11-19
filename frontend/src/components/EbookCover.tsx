@@ -1,11 +1,10 @@
 import Image from "next/image";
 
-// Mockup 3D provisório da capa; troque o conteúdo da frente pela arte real quando existir
 export default function EbookCover() {
   return (
     <div
       role="img"
-      aria-label="Capa do e-book LowTec de prompts para retratos com IA"
+      aria-label="Capa do e-book Você em 100 versões: 100 prompts para geração de fotos com I.A."
       className="group relative select-none perspective-distant"
     >
       {/* Sombra no chão */}
@@ -14,14 +13,15 @@ export default function EbookCover() {
         className="absolute -bottom-8 left-1/2 h-8 w-4/5 -translate-x-1/2 rounded-[50%] bg-black/70 blur-xl"
       />
 
-      <div className="relative aspect-3/4 w-56 transform-[rotateY(24deg)] transition-transform duration-700 ease-out transform-3d group-hover:transform-[rotateY(8deg)] motion-reduce:transition-none sm:w-60">
+      {/* Proporção da arte da capa (1055×1491) */}
+      <div className="relative aspect-1055/1491 w-56 transform-[rotateY(24deg)] transition-transform duration-700 ease-out transform-3d group-hover:transform-[rotateY(8deg)] motion-reduce:transition-none sm:w-60">
         {/* Lombada */}
         <div
           aria-hidden="true"
           className="from-marca1 to-fundo2 absolute inset-y-0 -left-3 flex w-6 transform-[rotateY(-90deg)] items-center justify-center bg-linear-to-b"
         >
           <span className="font-ui text-text1/80 text-[0.55rem] font-bold tracking-[0.3em] uppercase [writing-mode:vertical-rl]">
-            LowTec
+            Você em 100 versões
           </span>
         </div>
 
@@ -38,54 +38,25 @@ export default function EbookCover() {
         />
 
         {/* Capa */}
-        <div className="bg-fundo2 absolute inset-0 flex transform-[translateZ(0.75rem)] flex-col justify-between overflow-hidden rounded-r-md p-6 shadow-[20px_30px_60px_-20px_rgba(0,0,0,0.9)] ring-1 ring-white/10">
-          <div
-            aria-hidden="true"
-            className="bg-marca/30 absolute -top-12 -right-12 size-44 rounded-full blur-3xl"
+        <div className="bg-fundo2 absolute inset-0 transform-[translateZ(0.75rem)] overflow-hidden rounded-r-md shadow-[20px_30px_60px_-20px_rgba(0,0,0,0.9)] ring-1 ring-white/10">
+          <Image
+            src="/Capa_Voce_Em_Cem_Versoes.png"
+            alt=""
+            fill
+            sizes="(min-width: 640px) 15rem, 14rem"
+            className="object-cover"
           />
-          <div
-            aria-hidden="true"
-            className="from-marca/20 absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t to-transparent"
-          />
-          <div
-            aria-hidden="true"
-            className="border-marca/30 absolute inset-3 rounded-sm border border-dashed"
-          />
+
           {/* Vinco da lombada */}
           <div
             aria-hidden="true"
             className="absolute inset-y-0 left-0 w-4 bg-linear-to-r from-black/60 to-transparent"
           />
-
-          <Image
-            src="/logo_submark.svg"
-            alt=""
-            width={448}
-            height={337}
-            className="relative h-7 w-auto self-start"
+          {/* Brilho do acabamento */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-linear-to-br from-white/10 via-transparent to-transparent"
           />
-
-          <div className="relative">
-            <p className="font-ui text-marca text-[0.6rem] font-bold tracking-[0.3em] uppercase">
-              E-book
-            </p>
-            <p className="font-display text-text1 mt-1 text-[2.1rem] leading-[0.9] font-black tracking-tight italic">
-              Retratos
-              <br />
-              com{" "}
-              <span className="from-marca to-text1 bg-linear-to-r bg-clip-text pr-1 text-transparent">
-                IA
-              </span>
-            </p>
-            <p className="text-text2 mt-3 text-[0.7rem] leading-snug">
-              Prompts prontos para transformar a sua foto
-            </p>
-          </div>
-
-          <div className="font-ui text-text3 relative flex items-center justify-between text-[0.55rem] font-bold tracking-widest uppercase">
-            <span>+100 prompts</span>
-            <span>LowTec</span>
-          </div>
         </div>
       </div>
     </div>
