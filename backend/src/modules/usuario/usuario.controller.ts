@@ -10,6 +10,10 @@ import sharp from "sharp";
 import { r2Service } from "../../utils/cloudflareR2.service.js";
 import { R2_PUBLIC_URL } from "../../config/r2.js";
 import { isValidEmail, isValidPassword, slugify } from "../../utils/regex.js";
+import {
+  clearSessionCookie,
+  sessionUserCookieOptions,
+} from "../../utils/cookie.js";
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -255,13 +259,7 @@ export class UsuarioController {
         },
       );
 
-      res.cookie("JWT_USUARIO", accessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-      });
+      res.cookie("JWT_USUARIO", accessToken, sessionUserCookieOptions);
 
       return res.status(200).json({
         message: "Login realizado com sucesso.",
@@ -324,13 +322,7 @@ export class UsuarioController {
           },
         );
 
-        res.cookie("JWT_USUARIO", accessToken, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "strict",
-          path: "/",
-          maxAge: 7 * 24 * 60 * 60 * 1000,
-        });
+        res.cookie("JWT_USUARIO", accessToken, sessionUserCookieOptions);
 
         return res.status(201).json({
           message: "Conta criada e login realizado com sucesso.",
@@ -346,21 +338,15 @@ export class UsuarioController {
 
       const accessToken = jwt.sign(
         {
-          sub: usuario.id,
+          id: usuario.id,
           email: usuario.email,
         },
-        process.env.JWT_SECRET!,
+        process.env.JWT_USUARIO!,
         {
           expiresIn: "7d",
         },
       );
-      res.cookie("JWT_USUARIO", accessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-      });
+      res.cookie("JWT_USUARIO", accessToken, sessionUserCookieOptions);
 
       return res.status(200).json({
         message: "Login realizado com sucesso.",
@@ -376,12 +362,7 @@ export class UsuarioController {
 
   async logout(_req: Request, res: Response) {
     try {
-      res.clearCookie("JWT_USUARIO", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/",
-      });
+      clearSessionCookie(res, "JWT_USUARIO", sessionUserCookieOptions);
 
       return res.status(200).json({
         message: "Logout realizado com sucesso.",

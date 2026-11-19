@@ -6,8 +6,6 @@ import { produtoController } from "./produto.controller.js";
 
 const rotaProduto = Router();
 
-rotaProduto.use(globalRateLimit);
-
 rotaProduto.post("/create", adminMiddleware, produtoController.create);
 
 rotaProduto.get(

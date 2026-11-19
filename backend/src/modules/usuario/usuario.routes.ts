@@ -9,8 +9,6 @@ import { uploadAvatar } from "../../middleware/uploadMiddleware.js";
 
 const rotaUsuario = Router();
 
-rotaUsuario.use(globalRateLimit);
-
 rotaUsuario.get("/me", usuarioMiddleware, usuarioController.getInfoUsuario);
 
 rotaUsuario.post(

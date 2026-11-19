@@ -7,8 +7,6 @@ import {
 import { adminController } from "./admin.controller.js";
 const rotaAdmin = Router();
 
-rotaAdmin.use(globalRateLimit);
-
 //REMOVER ESSA ROTA ABAIXO EM PRODUÇÃO - CREATE NÃO PODE IR EM PRODUÇÃO
 // rotaAdmin.post("/create", adminController.create);
 //ATENÇÃO

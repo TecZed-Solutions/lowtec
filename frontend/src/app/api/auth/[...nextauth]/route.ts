@@ -63,8 +63,11 @@ const handler = NextAuth({
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           sameSite: "strict",
+          ...(process.env.NODE_ENV === "production" && {
+            domain: ".lowtec.com.br",
+          }),
           path: "/",
-          maxAge: 7 * 24 * 60 * 60,
+          maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
         return true;

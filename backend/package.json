@@ -21,8 +21,10 @@
   "license": "MIT",
   "author": "TecZed",
   "type": "module",
-  "main": "src/server.ts",
+  "main": "dist/server.js",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
     "test": "tsx watch src/server.ts",
     "postinstall": "npx prisma generate"
   },
@@ -40,6 +42,7 @@
     "express-rate-limit": "^8.7.0",
     "google-auth-library": "^11.1.0",
     "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.12.1",
     "multer": "^2.4.0",
     "resend": "^6.31.0",
     "sharp": "^0.35.5"
@@ -53,7 +56,6 @@
     "@types/morgan": "^1.9.10",
     "@types/multer": "^2.3.0",
     "@types/node": "^26.6.3",
-    "morgan": "^1.12.1",
     "prisma": "^7.10.0",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3"

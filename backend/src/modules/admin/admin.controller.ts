@@ -6,6 +6,10 @@ import { isValidPassword, isValidTwoFactor } from "../../utils/regex.js";
 import { AdminAuthRequest, AdminToken } from "../../types/auth.js";
 import { StatusPagamento } from "@prisma/client";
 import prisma from "../../config/prisma.js";
+import {
+  clearSessionCookie,
+  sessionAdminCookieOptions,
+} from "../../utils/cookie.js";
 
 export class AdminController {
   async login(req: Request, res: Response) {
@@ -62,13 +66,7 @@ export class AdminController {
         },
       );
 
-      res.cookie("JWT_ADMIN", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/",
-        maxAge: 60 * 60 * 1000,
-      });
+      res.cookie("JWT_ADMIN", token, sessionAdminCookieOptions);
 
       return res.status(200).json({
         message: "Login realizado com sucesso.",
@@ -89,12 +87,7 @@ export class AdminController {
 
   async logout(_req: Request, res: Response) {
     try {
-      res.clearCookie("JWT_ADMIN", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/",
-      });
+      clearSessionCookie(res, "JWT_ADMIN", sessionAdminCookieOptions);
 
       return res.status(200).json({
         message: "Logout realizado com sucesso.",
@@ -174,13 +167,8 @@ export class AdminController {
         },
       );
 
-      res.cookie("JWT_ADMIN", newToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/",
-        maxAge: 60 * 60 * 1000,
-      });
+      res.cookie("JWT_ADMIN", newToken, sessionAdminCookieOptions);
+
       return res.status(200).json({
         message: "Verificação realizada com sucesso.",
       });

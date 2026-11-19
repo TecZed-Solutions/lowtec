@@ -7,8 +7,6 @@ import {
 import { pagamentoController } from "./pagamento.controller.js";
 const rotaPagamento = Router();
 
-rotaPagamento.use(globalRateLimit);
-
 rotaPagamento.get(
   "/todos",
   usuarioMiddleware,
