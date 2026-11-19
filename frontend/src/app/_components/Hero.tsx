@@ -1,14 +1,9 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { ArrowRight, LockKeyhole, MessageCircle, Zap } from "lucide-react";
 
 import CtaButton from "@/components/CtaButton";
 import Header from "@/components/Header";
 import HeroPattern from "@/components/hero/HeroPattern";
 import ProductShowcase from "@/components/hero/ProductShowcase";
-
-import { fadeInLeft, fadeInRight, fadeInUp } from "@/lib/motion";
 
 const items = [
   {
@@ -52,12 +47,7 @@ export default function Hero() {
         <Header />
 
         <div className="grid flex-1 items-center gap-14 py-12 lg:grid-cols-2 lg:gap-16">
-          <motion.div
-            variants={fadeInLeft}
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col items-center gap-7 lg:items-start"
-          >
+          <div className="motion-safe:animate-fade-in-left flex flex-col items-center gap-7 lg:items-start">
             <h1
               id="hero-title"
               className="font-display text-text1 text-center text-[clamp(2.5rem,6.5vw,4.75rem)] leading-[0.95] font-black tracking-tight italic lg:text-left"
@@ -74,12 +64,7 @@ export default function Hero() {
               seu rosto. É só escolher, copiar e colar na IA.
             </p>
 
-            <motion.div
-              variants={fadeInUp}
-              initial="hidden"
-              animate="visible"
-              className="flex flex-col items-center gap-5 lg:items-start"
-            >
+            <div className="motion-safe:animate-fade-in-up flex flex-col items-center gap-5 lg:items-start">
               <CtaButton href="/checkout">
                 Adquirir agora
                 <ArrowRight className="transition-transform group-hover:translate-x-1" />
@@ -103,17 +88,12 @@ export default function Hero() {
                   );
                 })}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          <motion.div
-            variants={fadeInRight}
-            initial="hidden"
-            animate="visible"
-            className="mx-auto w-full max-w-md lg:mr-0 lg:ml-auto"
-          >
+          <div className="motion-safe:animate-fade-in-right mx-auto w-full max-w-md lg:mr-0 lg:ml-auto">
             <ProductShowcase />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -6,6 +6,8 @@ import { ArrowLeft, Check, LockKeyhole } from "lucide-react";
 import { PRODUCT } from "@/config/product";
 import { OFFER, TRUST } from "@/constants/offer";
 import { formatarMoeda } from "@/lib/utils";
+import capaEbook from "@public/Capa_Voce_Em_Cem_Versoes.png";
+import logoSubmark from "@public/logo_submark.svg";
 
 import FinalizarCompra from "./_components/FinalizarCompra";
 
@@ -34,7 +36,7 @@ export default function CheckoutPage() {
       <header className="mx-auto flex max-w-5xl items-center justify-between px-6 pt-8">
         <Link href="/" aria-label="Lowtec, página inicial" className="w-fit">
           <Image
-            src="/logo_submark.svg"
+            src={logoSubmark}
             alt=""
             width={448}
             height={337}
@@ -76,7 +78,7 @@ export default function CheckoutPage() {
             <div className="flex items-center gap-5">
               <div className="bg-fundo2 relative w-20 shrink-0 overflow-hidden rounded-r-md shadow-[10px_16px_40px_-16px_rgba(0,0,0,0.9)] ring-1 ring-white/10 sm:w-24">
                 <Image
-                  src="/Capa_Voce_Em_Cem_Versoes.png"
+                  src={capaEbook}
                   alt="Capa do e-book Você em 100 versões"
                   width={1055}
                   height={1491}

@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import capaEbook from "@public/Capa_Voce_Em_Cem_Versoes.png";
+
 export default function EbookCover() {
   return (
     <div
@@ -40,7 +42,7 @@ export default function EbookCover() {
         {/* Capa */}
         <div className="bg-fundo2 absolute inset-0 transform-[translateZ(0.75rem)] overflow-hidden rounded-r-md shadow-[20px_30px_60px_-20px_rgba(0,0,0,0.9)] ring-1 ring-white/10">
           <Image
-            src="/Capa_Voce_Em_Cem_Versoes.png"
+            src={capaEbook}
             alt=""
             fill
             sizes="(min-width: 640px) 15rem, 14rem"

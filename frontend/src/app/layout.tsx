@@ -1,23 +1,11 @@
 import type { Metadata } from "next";
-import { Titillium_Web, Karla, Chivo, Geist } from "next/font/google";
+import { Chivo, Geist } from "next/font/google";
 import "./globals.css";
 import { siteDescription, siteName, siteTitle, siteUrl } from "@/config/site";
 import { UsuarioProvider } from "@/contexts/UsuarioContext";
 import { cn } from "@/lib/utils";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
-
-const titilliumWeb = Titillium_Web({
-  variable: "--font-titillium-web",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
-
-const karla = Karla({
-  variable: "--font-karla",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
 
 const chivo = Chivo({
   variable: "--font-chivo",
@@ -73,8 +61,6 @@ export default function RootLayout({
       className={cn(
         "h-full",
         "antialiased",
-        titilliumWeb.variable,
-        karla.variable,
         chivo.variable,
         "font-sans",
         geist.variable,

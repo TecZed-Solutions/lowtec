@@ -2,7 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
 
+import { LEGAL_ROTA } from "@/config/legal";
 import { NAVIGATION } from "@/config/navigation";
+import logoSubmark from "@public/logo_submark.svg";
+import logoTeczed from "@public/teczed_logo.svg";
 
 export default function Footer() {
   return (
@@ -16,7 +19,7 @@ export default function Footer() {
               className="w-fit"
             >
               <Image
-                src="/logo_submark.svg"
+                src={logoSubmark}
                 alt=""
                 width={448}
                 height={337}
@@ -46,9 +49,32 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center gap-4 border-t border-dashed border-white/10 pt-8 text-xs sm:flex-row sm:justify-between">
-          <p className="text-text3">
-            © {new Date().getFullYear()} LowTec. Todos os direitos reservados.
-          </p>
+          <div className="text-text3 flex flex-col items-center gap-2 text-center sm:items-start sm:text-left">
+            <p>
+              © {new Date().getFullYear()} LowTec. Todos os direitos reservados.
+            </p>
+          </div>
+
+          <nav aria-label="Documentos legais">
+            <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1">
+              <li>
+                <Link
+                  href={`${LEGAL_ROTA}#termos`}
+                  className="text-text2 hover:text-marca transition-colors"
+                >
+                  Termos de Uso
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={`${LEGAL_ROTA}#privacidade`}
+                  className="text-text2 hover:text-marca transition-colors"
+                >
+                  Política de Privacidade
+                </Link>
+              </li>
+            </ul>
+          </nav>
 
           <div className="flex items-center gap-6">
             <p className="text-text3">Desenvolvido por</p>
@@ -59,7 +85,7 @@ export default function Footer() {
               className="rounded-sm transition-opacity hover:opacity-80"
             >
               <Image
-                src="/teczed_logo.svg"
+                src={logoTeczed}
                 alt="TecZed"
                 width={1254}
                 height={1254}

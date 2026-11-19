@@ -209,6 +209,11 @@ body {
 
 @theme {
   --animate-bounce-step: bounce-step 1s infinite ease-in-out;
+  --animate-fade-in-left: fade-in-left 0.7s ease-out 0.15s both;
+  --animate-fade-in-right: fade-in-right 0.8s ease-out 0.25s both;
+  --animate-fade-in-up: fade-in-up 0.5s ease-out 0.4s both;
+  --animate-fade-in-down: fade-in-down 0.6s ease-out both;
+  --animate-energy-flow: energy-flow 13s linear infinite both;
 }
 
 @keyframes bounce-step {
@@ -220,5 +225,51 @@ body {
 
   30% {
     transform: translateY(-6px);
+  }
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-35px);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(35px) scale(0.96);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes energy-flow {
+  0% {
+    stroke-dashoffset: 1.12;
+    opacity: 0;
+  }
+
+  6.15%,
+  67.69% {
+    opacity: 0.18;
+  }
+
+  76.92%,
+  100% {
+    stroke-dashoffset: -0.12;
+    opacity: 0;
   }
 }

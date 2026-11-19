@@ -3,6 +3,7 @@ import { ArrowRight, LayoutGrid, ListOrdered, Sparkles } from "lucide-react";
 
 import CtaButton from "@/components/CtaButton";
 import EbookCover from "@/components/EbookCover";
+import InViewOnly from "@/components/InViewOnly";
 import { LightRays } from "@/components/ui/light-rays";
 import { NumberTicker } from "@/components/ui/number-ticker";
 
@@ -37,13 +38,14 @@ export default function Solution() {
       aria-labelledby="solution-title"
       className="bg-fundo border-marca/15 relative isolate overflow-hidden border-t border-dashed"
     >
-      <LightRays
-        color="rgba(73, 229, 16, 0.22)"
-        count={8}
-        speed={14}
-        length="10vh"
-        className="-z-10 motion-reduce:hidden"
-      />
+      <InViewOnly className="-z-10 motion-reduce:hidden">
+        <LightRays
+          color="rgba(73, 229, 16, 0.22)"
+          count={8}
+          speed={14}
+          length="10vh"
+        />
+      </InViewOnly>
 
       <div className="mx-auto max-w-7xl px-6 py-20">
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">

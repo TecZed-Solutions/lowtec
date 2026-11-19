@@ -2,28 +2,23 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { LayoutDashboard } from "lucide-react";
 
-import AuthDialog from "@/components/auth/AuthDialog";
+import AuthDialogLazy from "@/components/auth/AuthDialogLazy";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UsuarioContext } from "@/contexts/UsuarioContext";
 import { useAuth } from "@/hooks/useAuth";
 import { iniciais } from "@/lib/utils";
+import logoSubmark from "@public/logo_submark.svg";
 
 export default function Header() {
   const { usuario } = useAuth(UsuarioContext);
 
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="mb-12 flex items-center justify-between"
-    >
+    <header className="motion-safe:animate-fade-in-down mb-12 flex items-center justify-between">
       <Link href="/" aria-label="Lowtec, página inicial" className="w-fit">
         <Image
-          src="/logo_submark.svg"
+          src={logoSubmark}
           alt=""
           width={448}
           height={337}
@@ -60,8 +55,8 @@ export default function Header() {
           </Link>
         </div>
       ) : (
-        <AuthDialog />
+        <AuthDialogLazy />
       )}
-    </motion.header>
+    </header>
   );
 }

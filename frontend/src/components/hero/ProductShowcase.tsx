@@ -12,6 +12,10 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import proof1 from "@public/prompt-showcase/proof_1.png";
+import proof2 from "@public/prompt-showcase/proof_2.png";
+import proof3 from "@public/prompt-showcase/proof_3.png";
+import proof4 from "@public/prompt-showcase/proof_4.png";
 
 import Autoplay from "embla-carousel-autoplay";
 
@@ -19,28 +23,28 @@ const CATEGORIES = [
   {
     id: "fantasia",
     label: "Fantasia",
-    image: "/prompt-showcase/proof_1.png",
+    image: proof1,
     prompt:
       "Transforme sua aparência em um poderoso guerreiro nórdico, com vestimentas medievais, espada ornamentada e uma atmosfera cinematográfica sombria.",
   },
   {
     id: "viagem",
     label: "Viagem",
-    image: "/prompt-showcase/proof_2.png",
+    image: proof2,
     prompt:
       "Transforme sua foto de referência em um retrato realista em uma paisagem montanhosa coberta de neve, com iluminação natural e estilo fotográfico espontâneo.",
   },
   {
     id: "lifestyle",
     label: "Lifestyle",
-    image: "/prompt-showcase/proof_3.png",
+    image: proof3,
     prompt:
       "Explore um visual urbano e despojado ao lado de um carro esportivo, com iluminação neon e uma atmosfera noturna cinematográfica.",
   },
   {
     id: "angulos",
     label: "Angulos",
-    image: "/prompt-showcase/proof_4.png",
+    image: proof4,
     prompt:
       "Experimente uma perspectiva criativa com lente fisheye, distorção angular marcante, poses expressivas e um estilo editorial de moda.",
   },
@@ -95,15 +99,6 @@ export default function ProductShowcase() {
     setPlaying(!playing);
   };
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(active.prompt);
-      setCopied(true);
-    } catch {
-      // clipboard indisponível (ex.: contexto não seguro): falha silenciosa
-    }
-  };
-
   return (
     <div className="relative isolate drop-shadow-[0_30px_60px_rgba(73,229,16,0.14)]">
       {/* Moldura deslocada para dar profundidade */}
@@ -120,15 +115,15 @@ export default function ProductShowcase() {
           className="w-full"
         >
           <CarouselContent>
-            {CATEGORIES.map((category) => (
+            {CATEGORIES.map((category, index) => (
               <CarouselItem key={category.id}>
                 <div className="bg-fundo2 relative h-80 sm:h-96">
                   <Image
                     src={category.image}
                     alt={category.label}
                     fill
-                    priority={category.id === CATEGORIES[0].id}
-                    sizes="(min-width: 1024px) 28rem, 100vw"
+                    fetchPriority={index === 0 ? "auto" : "low"}
+                    sizes="(min-width: 31rem) 28rem, calc(100vw - 3rem)"
                     className="object-cover"
                   />
                   <div

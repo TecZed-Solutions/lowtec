@@ -2,20 +2,30 @@ import { ArrowRight, MoveHorizontal } from "lucide-react";
 
 import Comparison from "@/components/Comparison";
 import CtaButton from "@/components/CtaButton";
-import { DotPattern } from "@/components/ui/dot-pattern";
 import {
   AnimatedSpan,
   Terminal,
   TypingAnimation,
 } from "@/components/ui/terminal";
+import proofAfter from "@public/proof/after.png";
+import proofBefore from "@public/proof/before.png";
 
 const EXAMPLE = {
-  before: "/proof/before.png",
-  after: "/proof/after.png",
+  before: proofBefore,
+  after: proofAfter,
   fileName: "foto-original.png",
   prompt:
     "Retrato de inverno em formato horizontal, com a pessoa sentada numa pedra coberta de neve, no alto da montanha, ao lado de uma prancha de snowboard fincada na neve. Ela veste roupa de esqui toda preta e óculos escuros esportivos, com uma postura tranquila. À direita, pinheiros cobertos de gelo descem pelas encostas, sob um céu azul intenso e sem nuvens.",
 } as const;
+
+const ESCALA_COVER_MOBILE =
+  ((5 / 4) * EXAMPLE.after.width) / EXAMPLE.after.height;
+
+const COMPARISON_SIZES = [
+  "(min-width: 80rem) 77rem",
+  "(min-width: 40rem) calc(100vw - 3rem)",
+  `calc((100vw - 3rem) * ${ESCALA_COVER_MOBILE.toFixed(2)})`,
+].join(", ");
 
 export default function Proof() {
   return (
@@ -24,11 +34,9 @@ export default function Proof() {
       aria-labelledby="results-title"
       className="bg-fundo border-marca/15 relative isolate overflow-hidden border-t border-dashed"
     >
-      <DotPattern
-        width={24}
-        height={24}
-        cr={1.2}
-        className="text-marca/30 -z-10 mask-[radial-gradient(ellipse_at_center,#000_30%,transparent_80%)]"
+      <div
+        aria-hidden="true"
+        className="text-marca/30 pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_1px_1px,currentColor_0.7px,transparent_1.7px)] bg-size-[24px_24px] mask-[radial-gradient(ellipse_at_center,#000_30%,transparent_80%)]"
       />
 
       <div className="mx-auto max-w-7xl px-6 py-20">
@@ -67,6 +75,7 @@ export default function Proof() {
                 <Comparison
                   imageOne={EXAMPLE.before}
                   imageTwo={EXAMPLE.after}
+                  sizes={COMPARISON_SIZES}
                 />
               </div>
             </div>

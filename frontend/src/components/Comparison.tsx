@@ -1,18 +1,23 @@
 "use client";
 
+import Image, { type StaticImageData } from "next/image";
 import { useState, type CSSProperties } from "react";
 import {
   ReactCompareSlider,
   ReactCompareSliderHandle,
-  ReactCompareSliderImage,
 } from "react-compare-slider";
 
 interface ComparisonProps {
-  imageOne: string;
-  imageTwo: string;
+  imageOne: StaticImageData;
+  imageTwo: StaticImageData;
+  sizes: string;
 }
 
-export default function Comparison({ imageOne, imageTwo }: ComparisonProps) {
+export default function Comparison({
+  imageOne,
+  imageTwo,
+  sizes,
+}: ComparisonProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -39,8 +44,22 @@ export default function Comparison({ imageOne, imageTwo }: ComparisonProps) {
             }}
           />
         }
-        itemOne={<ReactCompareSliderImage src={imageOne} alt="Antes" />}
-        itemTwo={<ReactCompareSliderImage src={imageTwo} alt="Depois" />}
+        itemOne={
+          <Image
+            src={imageOne}
+            alt="Antes"
+            sizes={sizes}
+            className="block size-full max-w-full object-cover"
+          />
+        }
+        itemTwo={
+          <Image
+            src={imageTwo}
+            alt="Depois"
+            sizes={sizes}
+            className="block size-full max-w-full object-cover"
+          />
+        }
       />
 
       <div

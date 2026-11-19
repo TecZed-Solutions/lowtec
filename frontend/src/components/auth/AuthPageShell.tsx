@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import logoSubmark from "@public/logo_submark.svg";
+
 export default function AuthPageShell({ children }: { children: ReactNode }) {
   return (
     <main className="bg-fundo relative isolate flex flex-1 items-center justify-center overflow-hidden px-6 py-12">
@@ -17,7 +19,7 @@ export default function AuthPageShell({ children }: { children: ReactNode }) {
           className="mx-auto mb-8 block w-fit"
         >
           <Image
-            src="/logo_submark.svg"
+            src={logoSubmark}
             alt=""
             width={448}
             height={337}

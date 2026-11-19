@@ -7,6 +7,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { FAQ } from "@/constants/faq";
 import { messageIn } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import logoSubmark from "@public/logo_submark.svg";
 
 function Bubble({
   from,
@@ -71,7 +72,7 @@ export default function FaqChat() {
       <div className="flex items-center gap-3 border-b border-dashed border-white/10 px-5 py-4">
         <span className="bg-fundo ring-marca/40 relative flex size-10 shrink-0 items-center justify-center rounded-full ring-1">
           <Image
-            src="/logo_submark.svg"
+            src={logoSubmark}
             alt=""
             width={448}
             height={337}

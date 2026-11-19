@@ -18,13 +18,15 @@ export default function Home() {
   return (
     <>
       <ScrollProgress className="bg-marca" />
-      <Hero />
-      <Proof />
-      <Problem />
-      <Solution />
-      <Testimonials />
-      <Faq />
-      <Offer />
+      <main>
+        <Hero />
+        <Proof />
+        <Problem />
+        <Solution />
+        <Testimonials />
+        <Faq />
+        <Offer />
+      </main>
       <Footer />
     </>
   );

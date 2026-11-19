@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { ArrowRight, BadgeCheck, LoaderCircle } from "lucide-react";
 
 import AuthDialog from "@/components/auth/AuthDialog";
@@ -8,6 +9,7 @@ import Button from "@/components/Button";
 import CtaButton from "@/components/CtaButton";
 import FormAlert from "@/components/FormAlert";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { LEGAL_ROTA } from "@/config/legal";
 import { PRODUCT } from "@/config/product";
 import { UsuarioContext } from "@/contexts/UsuarioContext";
 import { useAuth } from "@/hooks/useAuth";
@@ -172,6 +174,19 @@ export default function FinalizarCompra() {
       <p className="text-text3 text-center text-xs">
         Você será levado ao ambiente seguro da InfinitePay para pagar com Pix ou
         cartão.
+      </p>
+
+      <p className="text-text3 text-center text-xs leading-relaxed">
+        Ao continuar, você concorda com os{" "}
+        <Link
+          href={`${LEGAL_ROTA}#termos`}
+          target="_blank"
+          className="text-text2 hover:text-marca underline underline-offset-4"
+        >
+          Termos de Uso
+        </Link>
+        : licença de uso pessoal e intransferível, ferramentas de IA não
+        incluídas e até 7 dias para desistir com reembolso integral.
       </p>
     </div>
   );

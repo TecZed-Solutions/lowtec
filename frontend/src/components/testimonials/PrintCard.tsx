@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 
 import { cn } from "@/lib/utils";
 
 interface ResultImage {
-  src: string;
+  src: StaticImageData;
   alt: string;
   badge: string;
   highlight: boolean;

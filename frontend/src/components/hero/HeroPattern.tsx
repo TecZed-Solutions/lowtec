@@ -1,7 +1,3 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-
 const paths = [
   "M-120 90C90 10 260 35 430 130C600 225 735 285 900 205C1065 125 1190 35 1370 70C1490 92 1580 120 1710 85",
   "M-100 245C80 160 245 150 390 220C535 290 650 390 835 370C1020 350 1120 225 1280 195C1440 165 1550 245 1700 275",
@@ -15,8 +11,6 @@ const paths = [
 ];
 
 export default function HeroPattern() {
-  const reduceMotion = useReducedMotion();
-
   return (
     <svg
       aria-hidden="true"
@@ -38,36 +32,24 @@ export default function HeroPattern() {
         ))}
       </g>
 
-      {!reduceMotion && (
-        <g
-          filter="url(#energy-blur)"
-          stroke="currentColor"
-          strokeWidth="9"
-          strokeLinecap="round"
-        >
-          {paths.map((path, index) => (
-            <motion.path
-              key={index}
-              d={path}
-              pathLength={1}
-              strokeDasharray="0.12 0.88"
-              initial={{ strokeDashoffset: 1.12, opacity: 0 }}
-              animate={{
-                strokeDashoffset: [1.12, -0.12],
-                opacity: [0, 0.18, 0.18, 0],
-              }}
-              transition={{
-                duration: 10,
-                ease: "linear",
-                repeat: Infinity,
-                repeatDelay: 3,
-                delay: index * 4,
-                times: [0, 0.08, 0.88, 1],
-              }}
-            />
-          ))}
-        </g>
-      )}
+      <g
+        filter="url(#energy-blur)"
+        stroke="currentColor"
+        strokeWidth="9"
+        strokeLinecap="round"
+        className="motion-reduce:hidden"
+      >
+        {paths.map((path, index) => (
+          <path
+            key={index}
+            d={path}
+            pathLength={1}
+            strokeDasharray="0.12 0.88"
+            className="animate-energy-flow"
+            style={{ animationDelay: `${index * 4}s` }}
+          />
+        ))}
+      </g>
     </svg>
   );
 }

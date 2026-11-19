@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import {
   ArrowRight,
   DoorOpen,
@@ -25,10 +25,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { LEGAL_ROTA } from "@/config/legal";
 import { UsuarioContext } from "@/contexts/UsuarioContext";
 import { useAuth } from "@/hooks/useAuth";
 import { MENSAGEM_SENHA, senhaValida } from "@/lib/utils";
 import { usuarioService } from "@/services/usuario.service";
+import logoSubmark from "@public/logo_submark.svg";
 
 type AuthMode = "login" | "registro" | "verificar";
 
@@ -49,15 +51,18 @@ const COPY = {
   },
 } as const;
 
-interface AuthDialogProps {
+export interface AuthDialogProps {
   trigger?: React.ReactElement;
   redirecionarPara?: string | null;
+  defaultOpen?: boolean;
 }
 
 export default function AuthDialog({
   trigger = <Button icon={DoorOpen}>Fazer login</Button>,
   redirecionarPara = "/perfil",
+  defaultOpen = false,
 }: AuthDialogProps) {
+  const triggerId = useId();
   const router = useRouter();
   const { recarregarUsuario } = useAuth(UsuarioContext);
   const [mode, setMode] = useState<AuthMode>("login");
@@ -156,13 +161,13 @@ export default function AuthDialog({
   };
 
   return (
-    <Dialog>
-      <DialogTrigger render={trigger} />
+    <Dialog defaultOpen={defaultOpen} defaultTriggerId={triggerId}>
+      <DialogTrigger id={triggerId} render={trigger} />
 
       <DialogContent className="bg-cartao text-text1 ring-marca/25 isolate max-h-[calc(100svh-2rem)] gap-6 overflow-y-auto p-6 sm:max-w-md sm:p-8">
         <DialogHeader className="items-center text-center">
           <Image
-            src="/logo_submark.svg"
+            src={logoSubmark}
             alt=""
             width={448}
             height={337}
@@ -327,6 +332,26 @@ export default function AuthDialog({
               >
                 {COPY[mode].switchAction}
               </button>
+            </p>
+
+            <p className="text-text3 text-center text-xs leading-relaxed">
+              Ao continuar, você concorda com os{" "}
+              <Link
+                href={`${LEGAL_ROTA}#termos`}
+                target="_blank"
+                className="text-text2 hover:text-marca underline underline-offset-4"
+              >
+                Termos de Uso
+              </Link>{" "}
+              e declara ter lido a{" "}
+              <Link
+                href={`${LEGAL_ROTA}#privacidade`}
+                target="_blank"
+                className="text-text2 hover:text-marca underline underline-offset-4"
+              >
+                Política de Privacidade
+              </Link>
+              .
             </p>
           </>
         )}

@@ -1,3 +1,6 @@
+import resultsAfter from "@public/results/after.png";
+import resultsBefore from "@public/results/before.jpg";
+
 export const TESTIMONIALS = [
   {
     name: "Camila R.",
@@ -19,13 +22,13 @@ export const TESTIMONIALS = [
 
 export const BEFORE_AFTER = [
   {
-    src: "/results/before.jpg",
+    src: resultsBefore,
     alt: "Foto original: selfie simples, de frente, tirada em casa",
     badge: "Antes",
     highlight: false,
   },
   {
-    src: "/results/after.png",
+    src: resultsAfter,
     alt: "Resultado: a mesma pessoa como sobrevivente em uma cena de terror em preto e branco, diante de uma janela de vidro fosco marcada por mãos",
     badge: "Depois",
     highlight: true,

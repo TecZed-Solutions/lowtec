@@ -2,6 +2,7 @@ import { ArrowRight, Check } from "lucide-react";
 
 import CtaButton from "@/components/CtaButton";
 import EbookCover from "@/components/EbookCover";
+import InViewOnly from "@/components/InViewOnly";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { PRODUCT } from "@/config/product";
 import { formatarMoeda, formatarValor } from "@/lib/utils";
@@ -18,14 +19,16 @@ export default function Offer() {
       className="bg-fundo border-marca/15 relative isolate overflow-hidden border-t border-dashed"
     >
       {/* Grade animada e brilho de fundo */}
-      <AnimatedGridPattern
-        width={56}
-        height={56}
-        numSquares={40}
-        maxOpacity={0.2}
-        duration={3}
-        className="text-marca stroke-marca/10 -z-10 skew-y-12 mask-[radial-gradient(ellipse_at_center,#000_25%,transparent_80%)] motion-reduce:hidden"
-      />
+      <InViewOnly className="-z-10 motion-reduce:hidden">
+        <AnimatedGridPattern
+          width={56}
+          height={56}
+          numSquares={40}
+          maxOpacity={0.2}
+          duration={3}
+          className="text-marca stroke-marca/10 skew-y-12 mask-[radial-gradient(ellipse_at_center,#000_25%,transparent_80%)]"
+        />
+      </InViewOnly>
 
       <div className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
         <div className="relative mx-auto max-w-5xl">

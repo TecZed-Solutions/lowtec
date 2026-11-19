@@ -21,6 +21,7 @@ import { UsuarioContext } from "@/contexts/UsuarioContext";
 import { useAuth } from "@/hooks/useAuth";
 import { formatarMoeda } from "@/lib/utils";
 import { compraService } from "@/services/compra.service";
+import capaEbook from "@public/Capa_Voce_Em_Cem_Versoes.png";
 
 type Status = "verificando" | "confirmado" | "pendente";
 
@@ -36,7 +37,7 @@ function ResumoPedido({ pedido, comprovante }: PagamentoSucessoProps) {
   return (
     <div className="bg-fundo2 mt-8 flex w-full items-center gap-4 rounded-lg p-4 text-left ring-1 ring-white/10">
       <Image
-        src="/Capa_Voce_Em_Cem_Versoes.png"
+        src={capaEbook}
         alt=""
         width={1055}
         height={1491}
