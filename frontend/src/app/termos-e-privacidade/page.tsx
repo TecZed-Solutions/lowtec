@@ -93,11 +93,16 @@ export default function TermosEPrivacidadePage() {
               >
                 Em resumo
               </h2>
-              <Lista className="text-text2 mt-4 text-sm leading-relaxed">
+
+              <Lista className="text-text2 my-4 text-sm leading-relaxed">
                 {RESUMO.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </Lista>
+
+              <span className="text-text2 text-sm leading-relaxed">
+                Última atualização: {LEGAL_ATUALIZADO_EM}
+              </span>
 
               <nav
                 aria-label="Documentos desta página"

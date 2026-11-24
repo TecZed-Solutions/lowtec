@@ -83,7 +83,7 @@ export const OPERADORES = [
       "Sua foto de perfil, se você enviar uma. O arquivo do e-book também fica guardado lá.",
   },
   {
-    nome: "Provedores de hospedagem (como a Railway)",
+    nome: "Provedores de hospedagem",
     finalidade: "Manter o site, o servidor e o banco de dados no ar.",
     dados: "Os dados descritos nesta política e os registros de acesso.",
   },

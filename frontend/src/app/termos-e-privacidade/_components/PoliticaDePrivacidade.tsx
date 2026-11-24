@@ -110,10 +110,10 @@ export const POLITICA_DE_PRIVACIDADE: readonly Clausula[] = [
     titulo: "Transferência internacional",
     conteudo: (
       <p>
-        Alguns desses fornecedores, como Google, Resend, Cloudflare e Railway,
-        podem armazenar ou processar dados fora do Brasil, principalmente nos
-        Estados Unidos. Essas transferências seguem as hipóteses do art. 33 da
-        LGPD e a regulamentação da ANPD.
+        Alguns desses fornecedores, como Google, Resend, Cloudflare, podem
+        armazenar ou processar dados fora do Brasil, principalmente nos Estados
+        Unidos. Essas transferências seguem as hipóteses do art. 33 da LGPD e a
+        regulamentação da ANPD.
       </p>
     ),
   },
