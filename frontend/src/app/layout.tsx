@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Chivo, Geist } from "next/font/google";
 import "./globals.css";
+import MetaPixel from "@/components/MetaPixel";
 import { siteDescription, siteName, siteTitle, siteUrl } from "@/config/site";
 import { UsuarioProvider } from "@/contexts/UsuarioContext";
 import { cn } from "@/lib/utils";
@@ -61,6 +62,7 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", chivo.variable, geist.variable)}
     >
       <body className="flex min-h-full flex-col">
+        <MetaPixel />
         <UsuarioProvider>{children}</UsuarioProvider>
       </body>
     </html>

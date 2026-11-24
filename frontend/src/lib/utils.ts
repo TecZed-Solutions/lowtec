@@ -50,3 +50,7 @@ export function formatarMoeda(valor: string, desconto = "0") {
 export function formatarValor(valor: string, desconto = "0") {
   return numero.format(centavos(valor, desconto) / 100);
 }
+
+export function precoFinal(valor: string, desconto = "0") {
+  return centavos(valor, desconto) / 100;
+}

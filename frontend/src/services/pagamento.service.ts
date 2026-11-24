@@ -1,9 +1,12 @@
 import { ApiError } from "@/types/error";
-import { PagamentoComCompras } from "@/types/pagamento";
+import { PagamentoComCompras, RastreioPagamento } from "@/types/pagamento";
 
 export class PagamentoService {
   private baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  async create(produtoId: string): Promise<string | ApiError> {
+  async create(
+    produtoId: string,
+    rastreio?: RastreioPagamento,
+  ): Promise<string | ApiError> {
     try {
       const response = await fetch(`${this.baseUrl}/pagamento/create`, {
         method: "POST",
@@ -12,6 +15,7 @@ export class PagamentoService {
         body: JSON.stringify({
           produtoId: [produtoId],
           gateway: "INFINITEPAY",
+          rastreio,
         }),
       });
 

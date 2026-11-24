@@ -1,3 +1,4 @@
+import { Utm } from "./meta-pixel";
 import type { Produto } from "./produto";
 
 export type StatusPagamento =
@@ -16,4 +17,10 @@ export interface Pagamento {
 
 export interface PagamentoComCompras extends Pagamento {
   compras: { produto: Pick<Produto, "id" | "name"> }[];
+}
+
+export interface RastreioPagamento {
+  fbp?: string;
+  fbc?: string;
+  utm?: Utm;
 }

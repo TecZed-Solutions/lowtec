@@ -12,6 +12,18 @@ export interface CreatePagamentoDTO {
   metadata?: object;
 }
 
+export type Utm = Partial<
+  Record<"source" | "medium" | "campaign" | "content" | "term", string>
+>;
+
+export interface RastreioPagamento {
+  fbp?: string;
+  fbc?: string;
+  ip?: string;
+  userAgent?: string;
+  utm?: Utm;
+}
+
 export interface AtualizarPagamentoDTO {
   status?: StatusPagamento;
   metodo?: MetodoPagamento;

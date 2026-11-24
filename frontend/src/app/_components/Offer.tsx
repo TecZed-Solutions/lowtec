@@ -3,6 +3,7 @@ import { ArrowRight, Check } from "lucide-react";
 import CtaButton from "@/components/CtaButton";
 import EbookCover from "@/components/EbookCover";
 import InViewOnly from "@/components/InViewOnly";
+import RastrearOferta from "@/components/RastrearOferta";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { PRODUCT } from "@/config/product";
 import { formatarMoeda, formatarValor } from "@/lib/utils";
@@ -18,6 +19,8 @@ export default function Offer() {
       aria-labelledby="offer-title"
       className="bg-fundo border-marca/15 relative isolate overflow-hidden border-t border-dashed"
     >
+      <RastrearOferta />
+
       {/* Grade animada e brilho de fundo */}
       <InViewOnly className="-z-10 motion-reduce:hidden">
         <AnimatedGridPattern

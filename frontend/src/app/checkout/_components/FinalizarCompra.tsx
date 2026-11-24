@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, LoaderCircle } from "lucide-react";
 
@@ -13,6 +13,7 @@ import { LEGAL_ROTA } from "@/config/legal";
 import { PRODUCT } from "@/config/product";
 import { UsuarioContext } from "@/contexts/UsuarioContext";
 import { useAuth } from "@/hooks/useAuth";
+import { PARAMETROS_META, dadosRastreio, rastrear } from "@/lib/meta-pixel";
 import { iniciais } from "@/lib/utils";
 import { compraService } from "@/services/compra.service";
 import { pagamentoService } from "@/services/pagamento.service";
@@ -38,6 +39,13 @@ export default function FinalizarCompra() {
   const [jaComprou, setJaComprou] = useState<boolean | null>(null);
   const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const checkoutRastreado = useRef(false);
+
+  useEffect(() => {
+    if (checkoutRastreado.current) return;
+    checkoutRastreado.current = true;
+    rastrear("InitiateCheckout", PARAMETROS_META);
+  }, []);
 
   useEffect(() => {
     if (!usuarioId) return;
@@ -69,8 +77,12 @@ export default function FinalizarCompra() {
   const handlePagar = async () => {
     setErro(null);
     setEnviando(true);
+    rastrear("AddPaymentInfo", PARAMETROS_META);
 
-    const resultado = await pagamentoService.create(PRODUCT.id);
+    const resultado = await pagamentoService.create(
+      PRODUCT.id,
+      dadosRastreio(),
+    );
 
     if (typeof resultado !== "string") {
       setEnviando(false);

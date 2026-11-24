@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
-import { Prisma, StatusPagamento } from "@prisma/client";
+import { StatusPagamento } from "@prisma/client";
 import { pagamentoService } from "../pagamento/pagamento.service.js";
 import { mapInfinitePayMethod } from "../../utils/functions.js";
+import { notificarCompraMeta } from "../../integration/meta/index.js";
 
 export class InfinitePayController {
   async processPayment(req: Request, res: Response) {
@@ -59,9 +60,10 @@ export class InfinitePayController {
         },
       });
 
+      void notificarCompraMeta(pagamentoAtualizado);
+
       return res.status(200).json({
         message: "Pagamento processado com sucesso.",
-        pagamento: pagamentoAtualizado,
       });
     } catch (error) {
       console.error("Erro ao processar webhook da InfinitePay:", error);

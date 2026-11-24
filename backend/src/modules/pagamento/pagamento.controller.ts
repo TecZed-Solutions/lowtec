@@ -6,6 +6,7 @@ import {
 } from "@prisma/client";
 import { pagamentoService } from "./pagamento.service.js";
 import { createInfinitePayLink } from "../../integration/infinitePay/index.js";
+import { montarRastreio } from "../../integration/meta/index.js";
 import { compraService } from "../compra/compra.service.js";
 
 export class PagamentoController {
@@ -43,7 +44,7 @@ export class PagamentoController {
 
       const usuarioId = req.usuario.id;
 
-      const { produtoId, gateway } = req.body;
+      const { produtoId, gateway, rastreio } = req.body;
 
       if (!Array.isArray(produtoId) || produtoId.length === 0) {
         return res.status(400).json({
@@ -91,7 +92,14 @@ export class PagamentoController {
             {
               gatewayId: order_nsu,
               checkoutUrl: infinitePay.checkoutUrl,
-              metadata: infinitePay.raw,
+              metadata: {
+                ...infinitePay.raw,
+                rastreio: montarRastreio(
+                  rastreio,
+                  req.ip,
+                  req.get("user-agent"),
+                ),
+              },
             },
           );
 
