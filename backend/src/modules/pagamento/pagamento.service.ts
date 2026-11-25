@@ -115,6 +115,18 @@ export class PagamentoService {
       data,
     });
   }
+
+  async markAsPaid(
+    id: string,
+    data: Omit<AtualizarPagamentoDTO, "status">,
+  ): Promise<Pagamento | null> {
+    const [pagamento] = await prisma.pagamento.updateManyAndReturn({
+      where: { id, status: { not: StatusPagamento.PAID } },
+      data: { ...data, status: StatusPagamento.PAID },
+    });
+
+    return pagamento ?? null;
+  }
 }
 
 export const pagamentoService = new PagamentoService();
